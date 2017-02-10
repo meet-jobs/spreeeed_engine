@@ -1,0 +1,8 @@
+Description:
+    Generate SpreeeedEngine Config
+
+Example:
+    rails generate spreeeed_engine:install
+
+    This will create:
+        config/initializers/spreeeed_engine.rb

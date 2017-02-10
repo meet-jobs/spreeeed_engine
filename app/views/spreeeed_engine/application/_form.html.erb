@@ -1,0 +1,58 @@
+<%
+  path = object.new_record? ? objects_path : object_path(object)
+%>
+
+<%= simple_form_for(object, :url => path, :html => { :role => 'form', :class => 'form-horizontal', :'data-parsley-validate' => '', :novalidate => nil}) do |f| %>
+<%= render partial: 'error_messages', locals: { object: object, klass: klass } %>
+
+<% if editable_cols.kind_of?(ActiveSupport::OrderedHash) %>
+  <% editable_cols.each do |group, attrs| %>
+    <div class="header">
+      <h3><%= klass.human_attribute_name(group.to_sym) %></h3>
+    </div>
+    <% attrs.each do |attr| %>
+      <%= render_input(klass, attr, f) %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% editable_cols.each do |attr| %>
+<%= render_input(klass, attr, f) %>
+  <% end %>
+<% end %>
+
+  <% hidden_cols.each do |attr| %>
+<%= render_hidden_input(klass, attr, f) %>
+  <% end %>
+
+<% nested_cols.each do |attr, col_class| %>
+<%
+  related_object_name = attr
+  related_klass       = col_class.constantize
+  options = { :class => 'btn btn-success btn-sm pull-right', :partial => 'related_object_fields', :render_options => { :locals => { :klass => related_klass, :object_name => related_object_name}}}
+  if has_one_association?(object.class, {name: related_object_name})
+    # this options no longer works
+    options.merge!({force_non_association_create: true})
+  end
+%>
+
+<%= f.simple_fields_for related_object_name.to_sym do |related_form| %>
+  <%= render partial: 'related_object_fields', locals: { :f => related_form, :klass => related_klass, :object_name => related_object_name} %>
+<% end %>
+
+<% if (related_object_name.singularize != related_object_name) || (f.object.send(related_object_name).nil?) %>
+<% linked_name = %Q|<i class="fa fa-plus"></i> #{t('new')}#{related_klass.model_name.human}|.html_safe %>
+<div class="links col-sm-7">
+    <%= link_to_add_association linked_name, f, related_object_name.to_sym, options %>
+</div>
+<br clear="all" />
+<% end %>
+
+<% end %>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button :submit, t('save'), :class => 'btn btn-primary' %>
+      <%= f.button :button, t('cancel'), :type => 'reset', :class => 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

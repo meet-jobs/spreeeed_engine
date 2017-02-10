@@ -1,0 +1,38 @@
+<%= simple_form_for(resource,
+      :as => resource_name,
+      :url => session_path(resource_name),
+      :html => {:style => 'margin-bottom: 0px !important;', :class => 'form-horizontal'}
+    ) do |f| %>
+  <div class="content">
+    <h4 class="title">請登入</h4>
+    <%= f.error_notification %>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+          <input id="user_email" type="email" name="user[email]" autofocus="autofocus" placeholder="E-mail" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+          <%= f.input_field :password, :placeholder => "密碼", :class => "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <%= f.input :remember_me, :as => :boolean, :label => "記住我", :input_html => { :checked => true } %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="foot">
+    <%= f.button :submit, "登入", :class => "btn btn-primary" %>
+  </div>
+<% end %>

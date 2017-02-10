@@ -1,0 +1,43 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require spreeeed_engine/fontawesome/css/font-awesome.min
+ * require fontawesome
+
+ *= require bootstrap-sass
+ *= require jquery.gritter
+ *= require jasny-bootstrap
+ * require parsley
+ *= require jquery-ui
+ *= require datatables
+ * require spreeeed_engine/bootstrap-datepicker/bootstrap-datepicker.min
+ *= require bootstrap3-datetimepicker
+ *= require bootstrap-daterangepicker
+ *= require bootstrap-switch
+ * require spreeeed_engine/jquery.icheck/all
+ *= require spreeeed_engine/jquery.niftymodals/jquery.niftymodals.bootstrap.min
+ *= require fuelux
+ *= require jPushMenu
+ *= require nanoscroller
+ *= require select2
+ *= require select2-bootstrap3-css
+ * require bs-slider
+ * require spreeeed_engine/bootstrap-slider/bootstrap-slider.min
+ * require spreeeed_engine/bootstrap-typeahead/twitter-typeahead
+ * require spreeeed_engine/fuelux/css/fuelux.min
+ * require spreeeed_engine/fuelux/css/fuelux-responsive.min
+ *= require spreeeed_engine/style
+ * require spreeeed_engine/datatable
+ */
+
+@import "bootstrap";
+@import "style";
