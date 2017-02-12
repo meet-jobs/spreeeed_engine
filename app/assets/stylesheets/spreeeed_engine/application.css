@@ -38,6 +38,3 @@
  *= require spreeeed_engine/style
  * require spreeeed_engine/datatable
  */
-
-@import "bootstrap";
-@import "style";

@@ -3,10 +3,12 @@ module SpreeeedEngine
   require 'spreeeed_engine/datatable_cell'
   require 'spreeeed_engine/datatable_extension'
   require 'spreeeed_engine/regexp_to_js'
+  require 'spreeeed_engine/aasm_run_time'
 
   require 'devise'
   require 'simple_form'
   require 'cocoon'
+  require 'aasm'
 
 
 
@@ -35,9 +37,10 @@ module SpreeeedEngine
 
 
   class << self
-    mattr_accessor :devise_auth_resource, :namespace
+    mattr_accessor :devise_auth_resource, :namespace, :locale, :path
     self.devise_auth_resource = 'user'
     self.namespace            = 'admin'
+    self.locale               = :en
   end
 
   def self.setup(&block)
@@ -51,8 +54,9 @@ module SpreeeedEngine
     config.time_zone = 'Taipei'
 
     config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
-    config.i18n.available_locales ||= [:'zh-TW']
-    config.i18n.default_locale = :'zh-TW'
+    SpreeeedEngine.path = config.i18n.load_path
+    # config.i18n.available_locales ||= [:en, :'zh-TW']
+    config.i18n.default_locale = SpreeeedEngine.locale
     # config.action_controller.include_all_helpers = false
 
 

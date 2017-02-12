@@ -15,7 +15,6 @@ module SpreeeedEngine
       value = object.send(attr.to_sym)
 
       if primary_humanize_identifiers.include?(attr)
-        path = object_path(object)
         return link_to(value, object_path(object), {:target => '_blank'})
       end
 
@@ -43,68 +42,24 @@ module SpreeeedEngine
         return tel_to(value)
       end
 
+      if attr == :password
+        return password_mask(value)
+      end
+
       format_value(value)
-
-      # case value
-      #   when Integer
-      #     number_with_delimiter(value)
-      #   when TrueClass || FalseClass
-      #     true_or_false(value)
-      #   when Time
-      #     value.strftime('%Y/%m/%d %H:%M')
-      #   when Date
-      #     value.strftime('%Y/%m/%d')
-      #   else
-      #     value
-      # end
-      #
-      #
-      # if primary_humanize_identifiers.include?(attr.to_s)
-      #   link_to(value, object_path(object), {:target => '_blank'})
-      # elsif attr.to_s == 'email'
-      #
-      # elsif belongs_to_association?(object.class, {name: attr.to_s})
-      #   humanize_identifiers.each do |related_object_name|
-      #     if value.respond_to?(related_object_name.to_sym)
-      #       return datatable_cell_value(value, related_object_name.to_sym)
-      #     end
-      #   end
-      #   datatable_cell_value(value, :id)
-      #   # TO-DO: fix it
-      # elsif attr.to_s == 'aasm_state'
-      #   display_state(object, attr)
-      # elsif value.kind_of?(Date)
-      #   value.strftime('%Y/%m/%d')
-      # elsif value.kind_of?(Integer)
-      #   number_with_delimiter(value)
-      # elsif value.kind_of?(TrueClass)
-      #   true_or_false(value)
-      # elsif value.kind_of?(FalseClass)
-      #   true_or_false(value)
-      # elsif value.kind_of?(Time)
-      #   value.strftime('%Y/%m/%d %H:%M')
-      # elsif defined?(CarrierWave::Uploader::Base) && value.kind_of?(CarrierWave::Uploader::Base)
-      #   if value.class.const_defined? 'MiniMagick'
-      #     return asset_image_tag(value, [:datatable, :square])
-      #   end
-      #   nil
-      # else
-      #   value
-      # end
-
     end
 
     def display_attribute(object, attr)
-      if association = belongs_to_association(object.class, {foreign_key: attr.to_s})
-        association_object = object.send(association.name)
-        return association_object.name if association_object.present? and association_object.respond_to?(:name)
+      value = object.send(attr.to_sym)
+
+      if defined?(CarrierWave::Uploader::Base) && value.kind_of?(CarrierWave::Uploader::Base)
+        if value.class.const_defined? 'MiniMagick'
+          return asset_image_tag(value, [:datatable, :landscape])
+        end
+        return nil
       end
 
-      if attr.to_s == 'aasm_state'
-        display_state(object, attr)
-      else
-        format_value(object.send(attr.to_sym))
-      end
+      datatable_cell_value(object, attr)
     end
 
     def tel_to(text)
@@ -117,11 +72,15 @@ module SpreeeedEngine
       link_to text, "tel:#{groups.join '-'}"
     end
 
+    def password_mask(pwd)
+      pwd.gsub(/./, '*')
+    end
+
     def format_value(value)
       case value
         when String
           simple_format(value)
-        when Integer || Fixnum
+        when Integer || BigDecimal || Fixnum
           number_with_delimiter(value)
         when ActiveSupport::TimeWithZone || Time
           value.strftime('%Y/%m/%d %H:%M')

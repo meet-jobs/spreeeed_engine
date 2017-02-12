@@ -40,7 +40,7 @@
 <% end %>
 
 <% if (related_object_name.singularize != related_object_name) || (f.object.send(related_object_name).nil?) %>
-<% linked_name = %Q|<i class="fa fa-plus"></i> #{t('new')}#{related_klass.model_name.human}|.html_safe %>
+<% linked_name = %Q|<i class="fa fa-plus"></i> #{t('new')} #{related_klass.model_name.human}|.html_safe %>
 <div class="links col-sm-7">
     <%= link_to_add_association linked_name, f, related_object_name.to_sym, options %>
 </div>

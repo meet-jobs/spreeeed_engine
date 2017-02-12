@@ -8,13 +8,14 @@ class SpreeeedEngineCreate<%= @file_name.pluralize.camelize %> < ActiveRecord::M
       t.text      :content
       t.integer   :credit
       t.float     :rate
-      t.decimal   :amount
+      # t.decimal   :amount
       t.datetime  :beginning_at
       t.date      :ending_date
       t.time      :ending_time
       # t.daterange :availability
       # t.numrange  :legally_ages
-      t.boolean   :published
+      t.string    :published_state
+      t.boolean   :commentable
       # t.money     :money
       t.timestamps
     end

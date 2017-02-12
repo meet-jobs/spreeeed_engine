@@ -20,3 +20,5 @@ zh-TW:
   sign_in: 登入
   sign_out: 登出
   select_one: "請選擇..."
+  no_attachments: "目前無任何附件。"
+  no_comments: "目前無任何備註"

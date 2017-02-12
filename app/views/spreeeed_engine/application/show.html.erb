@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-12">
     <div class="block-flat">
       <div class="header">
         <h3><%= object_name(@object) %></h3>
@@ -17,7 +17,7 @@
         </table>
         <div class="content">
           <%= link_to(edit_label, edit_object_path(@object), :class => 'btn btn-primary') if @editable %>
-          <%= link_to(destroy_label, object_path(@object), :confirm => "#{t('destroy')}#{object_name(@object)}?", :method => :delete, :class => 'btn btn-danger pull-right') if @deletable %>
+          <%= link_to(destroy_label, object_path(@object), :confirm => "#{t('destroy')} #{object_name(@object)}?", :method => :delete, :class => 'btn btn-danger pull-right') if @deletable %>
         </div>
       </div>
     </div>

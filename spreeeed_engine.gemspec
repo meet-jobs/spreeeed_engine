@@ -49,6 +49,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise'
   s.add_dependency 'simple_form'
   s.add_dependency 'cocoon'
+  s.add_dependency 'aasm'
 
   # Stylesheets
   # s.add_dependency 'font-awesome-rails'

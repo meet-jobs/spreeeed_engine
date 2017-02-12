@@ -39,7 +39,7 @@ module SpreeeedEngine
       end
 
       def search_box_placeholder(klass, searchable_cols)
-        t('search') + searchable_cols.collect do |col|
+        t('search') + ' ' + searchable_cols.collect do |col|
           klass.human_attribute_name(col.to_sym)
         end.join(', ')
       end

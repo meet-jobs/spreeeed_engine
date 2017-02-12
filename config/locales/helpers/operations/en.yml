@@ -1,0 +1,24 @@
+---
+en:
+  save: Save
+  cancel: Cancel
+  edit: Edit
+  destroy: Delete
+  back: Back
+  new: New
+  frontend_view: Display at frontent
+  search: Search
+  choose_cover: Choose cover
+  choose_photo: Choose photo
+  remove_photo: Remove photo
+  choose_file: Choose file
+  remove_file: Remove file
+  upload: Upload
+  remark: Remark
+  operations: Operations
+  change: Change
+  sign_in: Sign in
+  sign_out: Sign out
+  select_one: 'Select...'
+  no_attachments: 'There are no attachments'
+  no_comments: 'There are no comments'

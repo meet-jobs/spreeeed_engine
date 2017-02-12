@@ -22,27 +22,19 @@ module SpreeeedEngine
           when :text
             render_text_input(klass, attr, form_object)
           when :string
+            if defined?(AASM) && klass.try(:aasm) && (klass.aasm.state_machine.config.column == attr)
+              return render_aasm_input(klass, attr, form_object)
+            end
             case attr.to_sym
-              when :filename
-                render_file_input(klass, attr, form_object)
+              # when :filename
+              #   render_file_input(klass, attr, form_object)
               when :asset
                 render_image_input(klass, attr, form_object)
               when :gender
                 render_gender_input(klass, attr, form_object)
-
               else
                 if klass.respond_to?(attr.to_s.pluralize.to_sym)
                   collection = klass.send(attr.to_s.pluralize.to_sym)
-
-                  if attr.to_s == 'aasm_state'
-                    mapping = []
-                    collection.each do |item|
-                      object = form_object.object
-                      mapping << [I18n.t("activerecord.attributes.#{object.class.to_s.underscore}.states.#{attr.to_s}.#{item}"), item]
-                    end
-                    collection = mapping
-                    Rails.logger.debug("=== collection = #{collection}")
-                  end
 
                   render_select_input(klass, attr, form_object, collection)
                 else

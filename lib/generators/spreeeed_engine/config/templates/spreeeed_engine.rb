@@ -1,3 +1,5 @@
 SpreeeedEngine.setup do |config|
-  config.namespace = '<%= @spreeeed_engine_namespace %>'
+  config.devise_auth_resource = 'user'
+  config.namespace            = '<%= @spreeeed_engine_namespace %>'
+  config.locale               = :en
 end

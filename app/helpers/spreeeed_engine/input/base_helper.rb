@@ -347,6 +347,14 @@ module SpreeeedEngine
 
       end
 
+      def render_aasm_input(klass, attr, form_object)
+        collection  = klass.aasm.states.collect do |state|
+          i18n_key = "#{attr}/#{state.name}".to_sym
+          [klass.human_attribute_name(i18n_key), state.name]
+        end
+        render_select_input(klass, attr, form_object, collection)
+      end
+
     end
   end
 end
