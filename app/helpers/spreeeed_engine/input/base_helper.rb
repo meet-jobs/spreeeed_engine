@@ -62,7 +62,7 @@ module SpreeeedEngine
 
       def render_text_input(klass, attr, form_object, html_options={})
         name = [klass.name.underscore, attr].join('_')
-        html_options.merge!({:rows => 6})
+        html_options.merge!({cols: 60, rows: 10, class: 'form-control autogrow', 'data-plus-as-tab': 'false'})
 
         content_tag :div, :class => 'form-group' do
           content = content_tag :label, :class => 'col-sm-3 control-label', :for => name do
@@ -100,6 +100,42 @@ module SpreeeedEngine
                 form_object.input_field(attr.to_sym, html_options) + ' ' + item
               end
             end.join(' ').html_safe
+          end
+
+          c1
+        end
+      end
+
+      def render_switch_input(klass, attr, form_object, options={default: false, size: 'normal', css_class: ''})
+        id = [klass.name.underscore, attr].join('_')
+
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => id do
+            klass.human_attribute_name(attr.to_sym)
+          end
+
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            # <div class="switch switch-mini has-switch">
+            #   <div class="switch-animate switch-on">
+            #     <input type="checkbox" checked="">
+            #     <span class="switch-left switch-mini">ON</span>
+            #     <label class="switch-mini">&nbsp;</label>
+            #     <span class="switch-right switch-mini">OFF</span></div>
+            # </div>
+            content_tag :div, :class => 'has-switch' do
+              form_object.input_field(attr.to_sym, as: :boolean, boolean_style: :inline)
+            end.html_safe
+
+            # collection.collect do |item|
+            #   content_tag :label, :class => 'radio-inline' do
+            #     html_options = {:class => 'icheck', :type => 'radio', :value => item, :style => "position: absolute; opacity: 0;"}
+            #     if form_object.object.send(attr.to_sym) == item
+            #       html_options.merge!({:checked => 'checked'})
+            #     end
+            #     html_options = bind_validators(klass, attr).merge(html_options)
+            #     form_object.input_field(attr.to_sym, html_options) + ' ' + item
+            #   end
+            # end.join(' ').html_safe
           end
 
           c1
@@ -156,22 +192,22 @@ module SpreeeedEngine
       end
 
 
-      def render_select2_input(klass, attr, form_object, collection=nil, query_path=nil)
+      def render_select2_input(klass, attr, form_object, options={collection: nil, query_path: nil})
         id = [klass.name.underscore, attr].join('_')
 
-        content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => id do
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => id do
             klass.human_attribute_name(attr.to_sym)
           end
 
-          c1 += content_tag :div, :class => "col-sm-6" do
-            content_tag :div, :class => "input-group" do
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            content_tag :div, :class => 'input-group' do
               html_options = bind_validators(klass, attr).merge({:class => "#{id.__id__} form-control", :style => 'width: 300px;'})
               form_object.input_field(attr.to_sym, html_options)
             end
           end
 
-          if collection
+          if options[:collection]
             c1 += %Q|
 <script>
   $(document).ready(function() {
@@ -179,7 +215,7 @@ module SpreeeedEngine
       placeholder: '#{I18n.t('select_one')}',
       width: 'resolve',
       minimumInputLength: 1,
-      data: #{collection.to_json},
+      data: #{options[:collection].to_json},
     });
   });
 </script>
@@ -193,7 +229,7 @@ module SpreeeedEngine
       width: 'resolve',
       minimumInputLength: 1,
       ajax: {
-        url: "#{query_path}.json",
+        url: "#{options[:query_path]}.json",
         data: function (term, page) {
           return {
             q: term
@@ -218,22 +254,21 @@ module SpreeeedEngine
         render_select_input(klass, attr, form_object, collection)
       end
 
-      def render_datetime_input(klass, attr, form_object, time_format="%Y-%m-%d %H:%M:%S", js_time_format="yyyy-mm-dd hh:ii:ss", start_view='2', min_view='0')
+      def render_datetime_input(klass, attr, form_object, options={ruby_time_format: '%Y-%m-%d %H:%M:%S', js_time_format: 'YYYY-MM-DD HH:mm:ss', css_selector: 'se-datetime', icon_class: 'fa fa-calendar'})
         name = [klass.name.underscore, attr].join('_')
 
-        content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => name do
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => name do
             klass.human_attribute_name(attr.to_sym)
           end
 
-          # default_datetime = form_object.object.send(attr.to_sym).strftime("%Y-%m-%dT%H:%M:%SZ")
-          default_datetime = form_object.object.send(attr.to_sym).strftime(time_format) rescue Time.zone.now.strftime(time_format)
+          default_datetime = form_object.object.send(attr.to_sym).strftime(options[:ruby_time_format]) rescue Time.zone.now.strftime(options[:ruby_time_format])
 
-          c1 += content_tag :div, :class => "col-sm-6" do
-            c2 = content_tag :div, :'data-date-format' => js_time_format, :'data-date' => default_datetime, :'data-start-view' => start_view, :'data-min-view' => min_view, :class => "input-group date datetime col-md-6 col-xs-7" do
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            c2 = content_tag :div, :'data-datetime-format' => options[:js_time_format], :class => "input-group #{options[:css_selector]} col-md-6 col-xs-7" do
               c3 = form_object.input_field attr.to_sym, bind_validators(klass, attr, {:class => 'form-control', :as => :string, :value => default_datetime})
               c3 += content_tag :span, :class => 'input-group-addon btn-primary' do
-                content_tag :span, :class => 'glyphicon glyphicon-th' do
+                content_tag :span, :class => options[:icon_class] do
                 end
               end
               c3
@@ -249,7 +284,11 @@ module SpreeeedEngine
       end
 
       def render_date_input(klass, attr, form_object)
-        render_datetime_input(klass, attr, form_object, "%Y-%m-%d", "yyyy-mm-dd", '2', '2')
+        render_datetime_input(klass, attr, form_object, {ruby_time_format: '%Y-%m-%d', js_time_format: 'YYYY-MM-DD', css_selector: 'se-date', icon_class: 'fa fa-calendar'})
+      end
+
+      def render_time_input(klass, attr, form_object)
+        render_datetime_input(klass, attr, form_object, {ruby_time_format: '%H:%M:%S', js_time_format: 'HH:mm:ss', css_selector: 'se-time', icon_class: 'fa fa-clock-o'})
       end
 
       def render_image_input(klass, attr, form_object)

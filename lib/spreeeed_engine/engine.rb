@@ -12,7 +12,7 @@ module SpreeeedEngine
 
 
 
-  # require 'rails-assets-fontawesome'
+  require 'rails-assets-fontawesome'
   require 'rails-assets-bootstrap-sass'
   require 'rails-assets-jquery.gritter'
   require 'rails-assets-jasny-bootstrap'
@@ -23,7 +23,7 @@ module SpreeeedEngine
   require 'rails-assets-icheck'
   require 'rails-assets-bootstrap3-datetimepicker'
   require 'rails-assets-moment'
-  require 'rails-assets-bootstrap-daterangepicker'
+  # require 'rails-assets-bootstrap-daterangepicker'
   require 'rails-assets-bootstrap-switch'
   require 'rails-assets-fuelux'
   require 'rails-assets-jquery.cookie'

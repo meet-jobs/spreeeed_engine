@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mini_magick'
 
 
-  # s.add_dependency 'rails-assets-fontawesome'
+  s.add_dependency 'rails-assets-fontawesome'
   s.add_dependency 'rails-assets-bootstrap-sass'
   s.add_dependency 'rails-assets-jasny-bootstrap'
   s.add_dependency 'rails-assets-jquery.gritter'
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails-assets-datatables'
   s.add_dependency 'rails-assets-icheck'
   s.add_dependency 'rails-assets-bootstrap3-datetimepicker'
-  s.add_dependency 'rails-assets-bootstrap-daterangepicker'
+  # s.add_dependency 'rails-assets-bootstrap-daterangepicker'
   s.add_dependency 'rails-assets-bootstrap-switch'
   s.add_dependency 'rails-assets-fuelux'
   s.add_dependency 'rails-assets-jquery.cookie'

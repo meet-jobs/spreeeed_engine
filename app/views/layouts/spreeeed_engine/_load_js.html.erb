@@ -52,17 +52,31 @@
 //    }
 //  }
 
+  JoelPurra.PlusAsTab.setOptions({key: 13});
+
   $(document).ready(function() {
-    $("input[class*='boolean']").bootstrapSwitch();
+//    $("input[class*='boolean']").bootstrapSwitch();
+    $('.has-switch').bootstrapSwitch();
 
-    /*
-    $(".datetime").datetimepicker({
-      autoclose: true,
-      language: 'zh-TW',
+    $(".se-date").datetimepicker({
+      format: $(".se-date").data('datetime-format'),
+      locale: '<%= SpreeeedEngine.locale %>',
     });
-    */
 
-    // $('.switch').bootstrapSwitch();
+    $(".se-time").datetimepicker({
+      format: $(".se-time").data('datetime-format'),
+      locale: '<%= SpreeeedEngine.locale %>',
+    });
+
+    $(".se-datetime").datetimepicker({
+      format: $(".se-datetime").data('datetime-format'),
+      locale: '<%= SpreeeedEngine.locale %>',
+    });
+
+    $('textarea.autogrow').autoGrow();
+
+
+
 
     // $('.bslider').slider();
 

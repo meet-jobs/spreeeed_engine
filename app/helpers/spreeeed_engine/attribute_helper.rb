@@ -82,10 +82,12 @@ module SpreeeedEngine
           simple_format(value)
         when Integer || BigDecimal || Fixnum
           number_with_delimiter(value)
-        when ActiveSupport::TimeWithZone || Time
-          value.strftime('%Y/%m/%d %H:%M')
+        when ActiveSupport::TimeWithZone
+          value.strftime('%Y-%m-%d %H:%M:%S')
         when Date
-          value.strftime('%Y/%m/%d')
+          value.strftime('%Y-%m-%d')
+        when Time
+          value.strftime('%H:%M:%S')
         when TrueClass
           true_or_false(value)
         when FalseClass

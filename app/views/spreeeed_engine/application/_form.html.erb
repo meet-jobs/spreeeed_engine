@@ -2,7 +2,7 @@
   path = object.new_record? ? objects_path : object_path(object)
 %>
 
-<%= simple_form_for(object, :url => path, :html => { :role => 'form', :class => 'form-horizontal', :'data-parsley-validate' => '', :novalidate => nil}) do |f| %>
+<%= simple_form_for(object, :url => path, :html => { :role => 'form', :class => 'form-horizontal', :'data-parsley-validate' => '', :'data-plus-as-tab' => 'true', :novalidate => nil}) do |f| %>
 <%= render partial: 'error_messages', locals: { object: object, klass: klass } %>
 
 <% if editable_cols.kind_of?(ActiveSupport::OrderedHash) %>

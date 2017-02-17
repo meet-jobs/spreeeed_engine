@@ -19,13 +19,19 @@ module SpreeeedEngine
             render_datetime_input(klass, attr, form_object)
           when :date
             render_date_input(klass, attr, form_object)
+          when :time
+            render_time_input(klass, attr, form_object)
           when :text
             render_text_input(klass, attr, form_object)
+          when :boolean
+            render_switch_input(klass, attr, form_object)
           when :string
             if defined?(AASM) && klass.try(:aasm) && (klass.aasm.state_machine.config.column == attr)
               return render_aasm_input(klass, attr, form_object)
             end
             case attr.to_sym
+              # when :name
+              #   render_select2_input(klass, attr, form_object, {collection: klass.all.collect{|instance| {id: instance.id, text: instance.name}}})
               # when :filename
               #   render_file_input(klass, attr, form_object)
               when :asset

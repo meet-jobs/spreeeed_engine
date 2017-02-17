@@ -96,7 +96,8 @@ module SpreeeedEngine
       @object = @klass.find(params[:id])
 
       respond_to do |format|
-        if @object.update_attributes(klass_params(@klass))
+        _params = klass_params(@klass)
+        if @object.update_attributes(_params)
           # format.html { redirect_to [SpreeeedEngine.namespace.to_sym, @object], notice: "#{@klass_name} was successfully updated." }
           format.html { redirect_to object_path(@object), notice: "#{@klass_name} was successfully updated." }
           # format.json { head :no_content }

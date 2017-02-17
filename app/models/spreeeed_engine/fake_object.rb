@@ -16,6 +16,11 @@ module SpreeeedEngine
     has_one :avatar, -> { where(label: 'Avatar') }, class_name: 'SpreeeedEngine::FakePhoto', foreign_key: 'owner_id'
     accepts_nested_attributes_for :avatar, reject_if: :all_blank, allow_destroy: true
 
+
+    # def self.editable_cols
+    #   [:name, :email, :beginning_at]
+    # end
+
     include AASM
     aasm :column => :published_state do
       state :draft, :initial => true
