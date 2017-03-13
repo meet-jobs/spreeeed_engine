@@ -1,0 +1,9 @@
+/*select {*/
+    /*height:auto !important;*/
+/*}*/
+
+.table-responsive {
+    overflow-x: inherit !important;
+}
+
+.typeahead, .tt-hint, .tt-input, .tt-menu { width: 100%; min-width: inherit !important; }
