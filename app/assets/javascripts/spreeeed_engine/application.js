@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require cocoon
-//= require bootstrap-sass
+//= require bootstrap-sprockets
 //= require jasny-bootstrap
 //= require jquery.gritter
 //= require moment
@@ -22,6 +22,7 @@
 // require spreeeed_engine/jquery.parsley/parsley.min
 //= require jquery-ui
 //= require datatables
+//= require spreeeed_engine/datatables-bootstrap-adapter.js
 //= require icheck
 //= require bootstrap3-datetimepicker
 // require bootstrap-daterangepicker
@@ -39,3 +40,4 @@
 //= require spreeeed_engine/jquery.textarea-autogrow/jquery.textarea-autogrow
 //= require spreeeed_engine/plusastab/emulatetab.joelpurra
 //= require spreeeed_engine/plusastab/plusastab.joelpurra
+//= require bootstrap3-typeahead

@@ -39,7 +39,7 @@ module SpreeeedEngine
       per_page  = params[:iDisplayLength] || PER_PAGE
       page      = (params[:iDisplayStart].to_i / per_page.to_i) + 1
 
-      proxy      = datatable_instances_proxy(@klass, @searchable_cols, @datatable_sortable_columns)
+      proxy      = datatable_instances_proxy(@klass, @datatable_searchable_cols, @datatable_sortable_columns)
       @instances = datatable_instances(proxy, page, per_page)
       total      = datatable_instances_total(proxy)
 

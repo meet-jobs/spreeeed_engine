@@ -2,6 +2,10 @@ module SpreeeedEngine
   module Input
     module BaseHelper
 
+      def attr_identifier(klass, attr)
+        [klass.name.demodulize.underscore, attr].join('_')
+      end
+
       def bind_validators(klass, attr, html_options={:class => 'form-control'})
         #
         # ref: http://parsleyjs.org/doc/index.html
@@ -31,6 +35,8 @@ module SpreeeedEngine
           end
         end
 
+        html_options[:'data-parsley-errors-container'] = "##{attr_identifier(klass, attr)}-error"
+
         html_options
       end
 
@@ -39,10 +45,10 @@ module SpreeeedEngine
       end
 
       def render_general_input(klass, attr, form_object, html_options={})
-        name = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => 'form-group' do
-          content = content_tag :label, :class => 'col-sm-3 control-label', :for => name do
+          content = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
@@ -50,8 +56,7 @@ module SpreeeedEngine
             sub_content = content_tag :div, :class => 'input-group' do
               form_object.input_field attr.to_sym, bind_validators(klass, attr).merge(html_options)
             end
-            sub_content += content_tag :div, :id => "#{name}-error" do
-            end
+            sub_content += content_tag(:div, '', :id => "#{attr_id}-error")
 
             sub_content
           end
@@ -60,19 +65,18 @@ module SpreeeedEngine
         end
       end
 
-      def render_text_input(klass, attr, form_object, html_options={})
-        name = [klass.name.underscore, attr].join('_')
+      def render_textarea_input(klass, attr, form_object, html_options={})
+        attr_id = attr_identifier(klass, attr)
         html_options.merge!({cols: 60, rows: 10, class: 'form-control autogrow', 'data-plus-as-tab': 'false'})
 
         content_tag :div, :class => 'form-group' do
-          content = content_tag :label, :class => 'col-sm-3 control-label', :for => name do
+          content = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
           content += content_tag :div, :class => 'col-sm-6' do
             sub_content = form_object.input_field attr.to_sym, bind_validators(klass, attr).merge(html_options)
-            # sub_content += content_tag :div, :id => "#{name}-error" do
-            # end
+            sub_content += content_tag(:div, '', :id => "#{attr_id}-error")
 
             sub_content
           end
@@ -82,17 +86,17 @@ module SpreeeedEngine
       end
 
       def render_radio_input(klass, attr, form_object, collection)
-        id = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
-        content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => id do
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
-          c1 += content_tag :div, :class => "col-sm-6" do
+          c1 += content_tag :div, :class => 'col-sm-6' do
             collection.collect do |item|
               content_tag :label, :class => 'radio-inline' do
-                html_options = {:class => 'icheck', :type => 'radio', :value => item, :style => "position: absolute; opacity: 0;"}
+                html_options = {:class => 'icheck', :type => 'radio', :value => item, :style => 'position: absolute; opacity: 0;' }
                 if form_object.object.send(attr.to_sym) == item
                   html_options.merge!({:checked => 'checked'})
                 end
@@ -107,35 +111,17 @@ module SpreeeedEngine
       end
 
       def render_switch_input(klass, attr, form_object, options={default: false, size: 'normal', css_class: ''})
-        id = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => 'form-group' do
-          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => id do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
           c1 += content_tag :div, :class => 'col-sm-6' do
-            # <div class="switch switch-mini has-switch">
-            #   <div class="switch-animate switch-on">
-            #     <input type="checkbox" checked="">
-            #     <span class="switch-left switch-mini">ON</span>
-            #     <label class="switch-mini">&nbsp;</label>
-            #     <span class="switch-right switch-mini">OFF</span></div>
-            # </div>
             content_tag :div, :class => 'has-switch' do
               form_object.input_field(attr.to_sym, as: :boolean, boolean_style: :inline)
             end.html_safe
-
-            # collection.collect do |item|
-            #   content_tag :label, :class => 'radio-inline' do
-            #     html_options = {:class => 'icheck', :type => 'radio', :value => item, :style => "position: absolute; opacity: 0;"}
-            #     if form_object.object.send(attr.to_sym) == item
-            #       html_options.merge!({:checked => 'checked'})
-            #     end
-            #     html_options = bind_validators(klass, attr).merge(html_options)
-            #     form_object.input_field(attr.to_sym, html_options) + ' ' + item
-            #   end
-            # end.join(' ').html_safe
           end
 
           c1
@@ -143,15 +129,15 @@ module SpreeeedEngine
       end
 
       def render_select_input(klass, attr, form_object, collection)
-        id = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
-        content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => id do
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
-          c1 += content_tag :div, :class => "col-sm-6" do
-            content_tag :div, :class => "input-group" do
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            content_tag :div, :class => 'input-group' do
               html_options = bind_validators(klass, attr).merge({:collection => collection})
               form_object.input_field(attr.to_sym, html_options)
             end
@@ -162,15 +148,15 @@ module SpreeeedEngine
       end
 
       def render_tags_input(klass, attr, form_object, tags=0)
-        id = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
-        content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => id do
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
-          c1 += content_tag :div, :class => "col-sm-6" do
-            content_tag :div, :class => "input-group" do
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            content_tag :div, :class => 'input-group' do
               html_options = bind_validators(klass, attr).merge({:class => 'tags'})
               form_object.hidden_field(attr.to_sym, html_options)
             end
@@ -179,7 +165,7 @@ module SpreeeedEngine
           c1 += %Q|
 <script>
   $(document).ready(function() {
-    $("##{id}").select2({
+    $("##{attr_id}").select2({
       tags: #{tags.to_json},
       width: 'resolve',
     });
@@ -193,38 +179,54 @@ module SpreeeedEngine
 
 
       def render_select2_input(klass, attr, form_object, options={collection: nil, query_path: nil})
-        id = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => 'form-group' do
-          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => id do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
           c1 += content_tag :div, :class => 'col-sm-6' do
-            content_tag :div, :class => 'input-group' do
-              html_options = bind_validators(klass, attr).merge({:class => "#{id.__id__} form-control", :style => 'width: 300px;'})
+            c2 = content_tag :div, :class => 'input-group' do
+              select2_options = {
+                :class => "#{attr_id.__id__} select2 form-control",
+                # :'data-placeholder' => I18n.t('select_one'),
+                # :'data-width' => 'resolve',
+                # :'data-minimumInputLength' => 1,
+                # :'data-data' => options[:collection].to_json,
+              }
+              html_options = bind_validators(klass, attr).merge({:style => 'width: 300px;'}).merge(select2_options)
               form_object.input_field(attr.to_sym, html_options)
             end
+            c2 += content_tag(:div, '', :id => "#{attr_id}-error")
+            c2
           end
 
+          default_value = form_object.object.send(attr.to_sym)
+          default_id    = options[:collection].select{ |item| item[:text] == default_value }.first[:id] rescue nil
+          has_default_value = !default_id.nil?
+
+
           if options[:collection]
-            c1 += %Q|
+            c1 += (%Q|
 <script>
   $(document).ready(function() {
-    $(".#{id.__id__}").select2({
+    $(".#{attr_id.__id__}").select2({
       placeholder: '#{I18n.t('select_one')}',
       width: 'resolve',
       minimumInputLength: 1,
       data: #{options[:collection].to_json},
     });
+| + (has_default_value ? %Q|$(".#{attr_id.__id__}").val("#{default_id}").trigger("change");| : '') +
+%Q|
   });
 </script>
-|.html_safe
+|).html_safe
           else
             c1 += %Q|
 <script>
   $(document).ready(function() {
-    $("##{id}").select2({
+    $("##{attr_id}").select2({
       placeholder: '#{I18n.t('select_one')}',
       width: 'resolve',
       minimumInputLength: 1,
@@ -249,16 +251,70 @@ module SpreeeedEngine
         end
       end
 
+      def render_auto_complete_input(klass, attr, form_object, options={collection: nil, query_path: nil})
+        attr_id = attr_identifier(klass, attr)
+
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
+            klass.human_attribute_name(attr.to_sym)
+          end
+
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            c2 = content_tag :div, :class => 'input-group' do
+              auto_complete_options = {
+                'data-provide': 'typeahead',
+                autocomplete: 'off'
+              }
+              html_options = bind_validators(klass, attr).merge(auto_complete_options)
+              form_object.input_field(attr.to_sym, html_options)
+            end
+            c2 += content_tag(:div, '', :id => "#{attr_id}-error")
+            c2
+          end
+
+          if options[:collection]
+            c1 += (%Q|
+<script>
+  $(document).ready(function() {
+    $("##{attr_id}").typeahead({
+      source: #{options[:collection].to_json},
+    });
+  });
+</script>
+|).html_safe
+          else
+            c1 += %Q|
+<script>
+  $(document).ready(function() {
+    $("##{attr_id}").typeahead({
+      source: function (query, process) {
+        return $.get('#{options[:query_path]}.json', { query: query },
+          function (data) {
+            console.log(data);
+            return process(data.options);
+          }
+        );
+      }
+    });
+  });
+</script>
+|.html_safe
+          end
+
+          c1
+        end
+      end
+
       def render_association_input(klass, attr, form_object, association, label_method=:name)
         collection  = association.class_name.camelize.constantize.all.collect { |item| [item.send(label_method), item.id] }
         render_select_input(klass, attr, form_object, collection)
       end
 
       def render_datetime_input(klass, attr, form_object, options={ruby_time_format: '%Y-%m-%d %H:%M:%S', js_time_format: 'YYYY-MM-DD HH:mm:ss', css_selector: 'se-datetime', icon_class: 'fa fa-calendar'})
-        name = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => 'form-group' do
-          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => name do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
@@ -273,8 +329,7 @@ module SpreeeedEngine
               end
               c3
             end
-            c2 += content_tag :div, :id => "#{name}-error" do
-            end
+            c2 += content_tag(:div, '', :id => "#{attr_id}-error")
 
             c2
           end
@@ -292,10 +347,10 @@ module SpreeeedEngine
       end
 
       def render_image_input(klass, attr, form_object)
-        name = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => name do
+          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
@@ -328,8 +383,7 @@ module SpreeeedEngine
               end
               c3.html_safe
             end
-            c2 += content_tag :div, :id => "#{name}-error" do
-            end
+            c2 += content_tag(:div, '', :id => "#{attr_id}-error")
 
             c2
           end
@@ -339,10 +393,10 @@ module SpreeeedEngine
       end
 
       def render_file_input(klass, attr, form_object)
-        name = [klass.name.underscore, attr].join('_')
+        attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => name do
+          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
@@ -375,8 +429,7 @@ module SpreeeedEngine
               end
               c3.html_safe
             end
-            c2 += content_tag :div, :id => "#{name}-error" do
-            end
+            c2 += content_tag(:div, '', :id => "#{attr_id}-error")
 
             c2
           end

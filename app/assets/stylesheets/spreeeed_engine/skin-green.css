@@ -928,7 +928,7 @@ input::-webkit-input-speech-button {
   font-size: 21px;
 }
 .sidebar-logo {
-  background: #19b698 url(../images/logo.png) no-repeat 15px 19px;
+  /*background: #19b698 url(../images/logo.png) no-repeat 15px 19px;*/
   padding: 15px 20px;
   display: block;
   height: 64px;

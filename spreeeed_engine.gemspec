@@ -21,10 +21,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'carrierwave'
   s.add_dependency 'mini_magick'
+  s.add_dependency 'will_paginate-bootstrap'
 
 
-  s.add_dependency 'rails-assets-fontawesome'
-  s.add_dependency 'rails-assets-bootstrap-sass'
+  s.add_dependency 'font-awesome-rails'
+  s.add_dependency 'bootstrap-sass'
   s.add_dependency 'rails-assets-jasny-bootstrap'
   s.add_dependency 'rails-assets-jquery.gritter'
   s.add_dependency 'rails-assets-moment'
@@ -44,6 +45,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails-assets-select2-bootstrap3-css'
   # s.add_dependency 'rails-assets-bs-slider'
   s.add_dependency 'rails-assets-jquery-option-tree'
+  s.add_dependency 'rails-assets-bootstrap3-typeahead'
 
 
   s.add_dependency 'devise'

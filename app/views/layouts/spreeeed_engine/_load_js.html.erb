@@ -5,7 +5,7 @@
 
 <% if notice %>
   $.gritter.add({
-    title: '系統訊息',
+    title: 'System message',
     text: '<%= notice %>',
     class_name: 'success'
   });
@@ -13,44 +13,11 @@
 
 <% if alert %>
   $.gritter.add({
-    title: '系統訊息',
+    title: 'System message',
     text: '<%= alert %>',
     class_name: 'danger'
   });
 <% end %>
-
-//  function build_datatable(id, path, placeholder, sortable_cols, default_sort_cols) {
-//    $("#" + id).dataTable({
-//      bProcessing: true,
-//      oLanguage: {
-//        sProcessing: '<%= image_tag("spreeeed_engine/ajax-loader.gif") %>',
-////        sLengthMenu:   "顯示 _MENU_ 項結果",
-////        sZeroRecords:  "沒有匹配結果",
-////        sInfo:         "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
-////        sInfoEmpty:    "顯示第 0 至 0 項結果，共 0 項",
-////        sInfoFiltered: "(從 _MAX_ 項結果過濾)",
-////        sInfoPostFix:  "",
-////        sSearch:       "搜索:",
-////        sUrl:          "",
-////        oPaginate: {
-////          sFirst:    "首頁",
-////          sPrevious: "上頁",
-////          sNext:     "下頁",
-////          sLast:     "尾頁",
-////        },
-//      },
-//      bServerSide: true,
-//      sAjaxSource: path,
-//      aoColumns: sortable_cols,
-//      aaSorting: default_sort_cols,
-//    });
-//
-//    //Search input style
-//    if ($("#" + id).length > 0) {
-//      $('.dataTables_filter input').addClass('form-control').attr('placeholder', placeholder);
-//      $('.dataTables_length select').addClass('form-control');
-//    }
-//  }
 
   JoelPurra.PlusAsTab.setOptions({key: 13});
 
@@ -74,11 +41,6 @@
     });
 
     $('textarea.autogrow').autoGrow();
-
-
-
-
-    // $('.bslider').slider();
 
     $('.icheck').iCheck({
       checkboxClass: 'icheckbox_flat-green',

@@ -22,7 +22,7 @@ module SpreeeedEngine
           when :time
             render_time_input(klass, attr, form_object)
           when :text
-            render_text_input(klass, attr, form_object)
+            render_textarea_input(klass, attr, form_object)
           when :boolean
             render_switch_input(klass, attr, form_object)
           when :string
@@ -30,8 +30,9 @@ module SpreeeedEngine
               return render_aasm_input(klass, attr, form_object)
             end
             case attr.to_sym
-              # when :name
-              #   render_select2_input(klass, attr, form_object, {collection: klass.all.collect{|instance| {id: instance.id, text: instance.name}}})
+              when :name
+                # render_auto_complete_input(klass, attr, form_object, {collection: klass.all.collect{|instance| {id: instance.id, name: instance.name}}})
+                render_auto_complete_input(klass, attr, form_object, {query_path: "/#{SpreeeedEngine.namespace}/scratch/typeahead_data"})
               # when :filename
               #   render_file_input(klass, attr, form_object)
               when :asset

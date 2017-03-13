@@ -9,11 +9,14 @@ module SpreeeedEngine
   require 'simple_form'
   require 'cocoon'
   require 'aasm'
+  require 'will_paginate-bootstrap'
 
 
 
-  require 'rails-assets-fontawesome'
-  require 'rails-assets-bootstrap-sass'
+  require 'font-awesome-rails'
+  require 'bootstrap-sass'
+  # require 'rails-assets-fontawesome'
+  # require 'rails-assets-bootstrap-sass'
   require 'rails-assets-jquery.gritter'
   require 'rails-assets-jasny-bootstrap'
   # require 'parsley-rails'
@@ -33,6 +36,7 @@ module SpreeeedEngine
   require 'rails-assets-select2-bootstrap3-css'
   # require 'rails-assets-bs-slider'
   require 'rails-assets-jquery-option-tree'
+  require 'rails-assets-bootstrap3-typeahead'
 
 
 
