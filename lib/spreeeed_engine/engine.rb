@@ -10,13 +10,15 @@ module SpreeeedEngine
   require 'cocoon'
   require 'aasm'
   require 'will_paginate-bootstrap'
+  require 'cells-rails'
+  require 'cells-erb'
 
 
 
-  require 'font-awesome-rails'
   require 'bootstrap-sass'
-  # require 'rails-assets-fontawesome'
   # require 'rails-assets-bootstrap-sass'
+  require 'rails-assets-font-awesome'
+  # require 'font-awesome-rails'
   require 'rails-assets-jquery.gritter'
   require 'rails-assets-jasny-bootstrap'
   # require 'parsley-rails'

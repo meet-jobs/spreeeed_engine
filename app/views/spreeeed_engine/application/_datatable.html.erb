@@ -1,7 +1,7 @@
 <table id="<%= klass.datatable_id %>" class="table table-bordered dataTable">
   <thead>
     <tr>
-<% labels.each do |label| %>
+<% datatable_config[:labels].each do |label| %>
       <th><%= label %></th>
 <% end %>
     </tr>
@@ -17,30 +17,29 @@
       bProcessing: true,
       oLanguage: {
         sProcessing: '<%= image_tag('spreeeed_engine/ajax-loader.gif') %>',
-//        sLengthMenu:   "顯示 _MENU_ 項結果",
-//        sZeroRecords:  "沒有匹配結果",
-//        sInfo:         "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
-//        sInfoEmpty:    "顯示第 0 至 0 項結果，共 0 項",
-//        sInfoFiltered: "(從 _MAX_ 項結果過濾)",
-//        sInfoPostFix:  "",
-//        sSearch:       "搜索:",
-//        sUrl:          "",
-//        oPaginate: {
-//          sFirst:    "首頁",
-//          sPrevious: "上頁",
-//          sNext:     "下頁",
-//          sLast:     "尾頁",
-//        },
+        sLengthMenu:   '<%= t('datatables.oLanguage.sLengthMenu') %>',
+        sZeroRecords:  '<%= t('datatables.oLanguage.sZeroRecords') %>',
+        sInfo:         '<%= t('datatables.oLanguage.sInfo') %>',
+        sInfoEmpty:    '<%= t('datatables.oLanguage.sInfoEmpty') %>',
+        sInfoFiltered: '<%= t('datatables.oLanguage.sInfoFiltered') %>',
+        sInfoPostFix:  '<%= t('datatables.oLanguage.sInfoPostFix') %>',
+        sSearch:       '<%= t('datatables.oLanguage.sSearch') %>',
+        oPaginate: {
+          sFirst:    '<%= t('datatables.oLanguage.oPaginate.sFirst') %>',
+          sPrevious: '<%= t('datatables.oLanguage.oPaginate.sPrevious') %>',
+          sNext:     '<%= t('datatables.oLanguage.oPaginate.sNext') %>',
+          sLast:     '<%= t('datatables.oLanguage.oPaginate.sLast') %>'
+        }
       },
       bServerSide: true,
       sAjaxSource: '<%= objects_path %>',
-      aoColumns: <%= render_sortable_cols(klass, attrs).to_json.html_safe %>,
-      aaSorting: <%= render_default_sortable_cols(sortable_cols, attrs).to_json.html_safe %>,
+      aoColumns: <%= render_sortable_cols(klass, datatable_config[:cols]).to_json.html_safe %>,
+      aaSorting: <%= render_default_sortable_cols(datatable_config[:sortable_cols], datatable_config[:cols]).to_json.html_safe %>,
     });
 
     //Search input style
     if ($("#<%= klass.datatable_id %>").length > 0) {
-      $('.dataTables_filter input').addClass('form-control').attr('placeholder', '<%= search_box_placeholder(klass, searchable_cols) %>');
+      $('.dataTables_filter input').addClass('form-control').attr('style', 'width:300px;').attr('placeholder', '<%= search_box_placeholder(klass, datatable_config[:searchable_cols]) %>');
       $('.dataTables_length select').addClass('form-control');
     }
   });

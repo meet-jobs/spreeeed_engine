@@ -7,23 +7,23 @@ module ActiveRecordExtension
       'fa-edit'
     end
 
-    def protected_cols
+    def protected_attrs
       %w(id created_at updated_at).map(&:to_sym)
     end
 
-    def displayable_cols
-      self.new.attributes.keys.map(&:to_sym) - protected_cols
+    def displayable_attrs
+      self.new.attributes.keys.map(&:to_sym) - protected_attrs
     end
 
-    def editable_cols
-      displayable_cols - protected_cols
+    def editable_attrs
+      displayable_attrs - protected_attrs
     end
 
-    def hidden_cols
+    def hidden_attrs
       []
     end
 
-    def nested_cols
+    def nested_attrs
       res = ActiveSupport::OrderedHash.new
 
       cols = self.nested_attributes_options.keys.compact

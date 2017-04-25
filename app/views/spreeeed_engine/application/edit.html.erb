@@ -11,7 +11,7 @@
       </div>
 
       <div class="content">
-<%= render :partial => 'form', :locals => {:object => @object, :klass => @klass, :klass_name => @klass.name, :editable_cols => @editable_cols, :nested_cols => @nested_cols, :hidden_cols => @hidden_cols} %>
+<%= render :partial => 'form', :locals => { object: @object, klass: @klass, active_record_config: @active_record_config[@klass_key] } %>
 
         <%= link_to t('back'), objects_path %>
       </div>

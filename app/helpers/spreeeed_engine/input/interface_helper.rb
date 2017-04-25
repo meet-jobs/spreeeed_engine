@@ -30,9 +30,8 @@ module SpreeeedEngine
               return render_aasm_input(klass, attr, form_object)
             end
             case attr.to_sym
-              when :name
-                # render_auto_complete_input(klass, attr, form_object, {collection: klass.all.collect{|instance| {id: instance.id, name: instance.name}}})
-                render_auto_complete_input(klass, attr, form_object, {query_path: "/#{SpreeeedEngine.namespace}/scratch/typeahead_data"})
+              # when :name
+                # render_auto_complete_input(klass, attr, form_object, {query_path: "/#{SpreeeedEngine.namespace}/scratch/typeahead_data"})
               # when :filename
               #   render_file_input(klass, attr, form_object)
               when :asset

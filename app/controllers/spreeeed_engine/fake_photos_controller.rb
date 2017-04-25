@@ -3,12 +3,16 @@ module SpreeeedEngine
 
     include EngineRouteController
 
-    def setup_global_variables
-      @klass             ||= SpreeeedEngine::FakePhoto
-      super
-      @datatable_columns = [:owner, :caption, :asset, :content_type, :width, :height, :size]
-      @datatable_default_sortable_cols = [[:content_type, 'ASC']]
-      @datatable_searchable_cols = [:content_type]
+    def set_klass
+      @klass = SpreeeedEngine::FakePhoto
+    end
+
+    def set_datatables_config
+      @datatable_config                                     = {}
+      @datatable_config[@klass_key]                         = {}
+      @datatable_config[@klass_key][:cols]                  = [:owner, :caption, :asset, :content_type, :width, :height, :size]
+      @datatable_config[@klass_key][:searchable_cols]       = [:content_type]
+      @datatable_config[@klass_key][:default_sortable_cols] =  [[:content_type, 'ASC']]
     end
 
   end

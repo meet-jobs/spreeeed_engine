@@ -9,7 +9,7 @@ module SpreeeedEngine
 
     end
 
-    skip_before_filter :"authenticate_#{SpreeeedEngine.devise_auth_resource}!", :setup_global_variables, only: [:typeahead_data]
+    skip_before_action :"authenticate_#{SpreeeedEngine.devise_auth_resource}!", :set_active_record_config, :set_datatables_config, only: [:typeahead_data]
     def typeahead_data
       fake_data = {
         options: FakeObject.all.collect(&:name)

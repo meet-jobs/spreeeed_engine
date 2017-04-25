@@ -3,7 +3,7 @@
     <div><h5><%= t('new') %> <%= klass.model_name.human %></h5></div>
     <hr />
 
-<% klass.editable_cols.each do |attr| %>
+<% klass.editable_attrs.each do |attr| %>
 <%= render_input(klass, attr, f) %>
 <% end %>
 

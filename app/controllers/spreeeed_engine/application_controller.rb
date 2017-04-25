@@ -9,47 +9,35 @@ module SpreeeedEngine
 
     PER_PAGE = 20
 
-    before_filter :"authenticate_#{SpreeeedEngine.devise_auth_resource}!", :setup_global_variables
+    before_action :"authenticate_#{SpreeeedEngine.devise_auth_resource}!", :set_klass, :set_klass_key
 
-    def setup_global_variables
-      @klass             ||= NilClass
-      # klass_name         = @klass.name
-      @displayable_cols  = (klass_name == 'NilClass' ? [] : @klass.displayable_cols)
-      @editable_cols     = (klass_name == 'NilClass' ? [] : @klass.editable_cols)
-      @nested_cols       = (klass_name == 'NilClass' ? [] : @klass.nested_cols)
-      @hidden_cols       = (klass_name == 'NilClass' ? [] : @klass.hidden_cols)
-      @creatable         ||= true
-      @editable          ||= true
-      @deletable         ||= true
+    before_action :set_active_record_config, only: [:index, :new, :show, :edit, :create, :update]
+    before_action :set_datatables_config, only: [:index, :show]
 
-      # setup all datatable env
-      @datatable_columns               ||= @klass.datatable_cols
-      @datatable_searchable_cols       ||= @klass.datatable_searchable_cols
-      @datatable_default_sortable_cols ||= @klass.datatable_default_sortable_cols
-    end
 
     def index
       # retrieve the localization of column name
-      @datatable_labels  = datatable_labels(@klass.new, @datatable_columns)
+      # @datatable_labels  = datatable_labels(@klass.new, @datatable_columns)
+      @datatable_config[@klass_key][:labels] = datatable_labels(@klass.new, @datatable_config[@klass_key][:cols])
 
       # get all sortable datatable columns
-      @datatable_sortable_columns = datatable_sortable_columns(@klass, @datatable_columns, @datatable_default_sortable_cols)
+      # @datatable_sortable_columns = datatable_sortable_columns(@klass, @datatable_columns, @datatable_default_sortable_cols)
+      @datatable_config[@klass_key][:sortable_cols] = datatable_sortable_columns(@klass, @datatable_config[@klass_key][:sortable_cols], @datatable_config[@klass_key][:default_sortable_cols])
 
       # get all datatable instances
       per_page  = params[:iDisplayLength] || PER_PAGE
       page      = (params[:iDisplayStart].to_i / per_page.to_i) + 1
 
-      proxy      = datatable_instances_proxy(@klass, @datatable_searchable_cols, @datatable_sortable_columns)
+      proxy      = datatable_instances_proxy(@klass, @datatable_config[@klass_key][:searchable_cols], @datatable_config[@klass_key][:sortable_cols])
       @instances = datatable_instances(proxy, page, per_page)
       total      = datatable_instances_total(proxy)
 
 
       respond_to do |format|
         format.html # index.html.erb
-        format.json { render json: datatable_raws(@instances, @datatable_columns, total) }
+        format.json { render json: datatable_raws(@instances, @datatable_config[@klass_key][:cols], total) }
       end
     end
-
 
     def new
       @object = @klass.new
@@ -61,7 +49,7 @@ module SpreeeedEngine
     end
 
     def show
-      @object = @klass.find(params[:id])
+      @object = find_instance
 
       respond_to do |format|
         format.html # show.html.erb
@@ -70,7 +58,8 @@ module SpreeeedEngine
     end
 
     def edit
-      @object = @klass.find(params[:id])
+      @object = find_instance
+
       respond_to do |format|
         format.html # edit.html.erb
         # format.json { render json: @object }
@@ -93,7 +82,7 @@ module SpreeeedEngine
     end
 
     def update
-      @object = @klass.find(params[:id])
+      @object = find_instance
 
       respond_to do |format|
         _params = klass_params(@klass)
@@ -109,7 +98,7 @@ module SpreeeedEngine
     end
 
     def destroy
-      @object = @klass.find(params[:id])
+      @object = find_instance
       @object.destroy
 
       respond_to do |format|
@@ -122,11 +111,60 @@ module SpreeeedEngine
 
     private
 
-    def klass_params(klass)
-      nested_params = klass.nested_cols.collect { |name, class_name| {"#{name}_attributes".to_sym => class_name.constantize.editable_cols + [:id, :_destroy]} }
-      params.require(klass.name.demodulize.underscore.to_sym).permit(klass.editable_cols + nested_params)
+    def find_instance
+      return nil unless params[:id].present?
+
+      if params[:id].to_s.match(/\D/) && defined?(FriendlyId) && @klass.respond_to?('friendly')
+        @klass.friendly.find(params[:id])
+      else
+        @klass.find(params[:id])
+      end
     end
 
+    def klass_params(klass)
+      nested_params = klass.nested_attrs.collect { |name, class_name| {"#{name}_attributes".to_sym => class_name.constantize.editable_cols + [:id, :_destroy]} }
+      params.require(klass.name.demodulize.underscore.to_sym).permit(klass.editable_attrs + nested_params)
+    end
+
+    def set_klass
+      @klass ||= NilClass
+    end
+
+    def set_klass_key
+      @klass_key = @klass.name.to_sym
+    end
+
+    def set_active_record_config
+      @active_record_config      ||= {}
+      @active_record_config[@klass_key] ||= {}
+
+      if @klass.name == 'NilClass'
+        @active_record_config[@klass_key][:displayable_attrs] = []
+        @active_record_config[@klass_key][:editable_attrs]    = []
+        @active_record_config[@klass_key][:nested_attrs]      = []
+        @active_record_config[@klass_key][:hidden_attrs]      = []
+        @active_record_config[@klass_key][:creatable]         = false
+        @active_record_config[@klass_key][:editable]          = false
+        @active_record_config[@klass_key][:deletable]         = false
+      else
+        @active_record_config[@klass_key][:displayable_attrs] = @klass.displayable_attrs
+        @active_record_config[@klass_key][:editable_attrs]    = @klass.editable_attrs
+        @active_record_config[@klass_key][:nested_attrs]      = @klass.nested_attrs
+        @active_record_config[@klass_key][:hidden_attrs]      = @klass.hidden_attrs
+        @active_record_config[@klass_key][:creatable]         = true
+        @active_record_config[@klass_key][:editable]          = true
+        @active_record_config[@klass_key][:deletable]         = true
+      end
+    end
+
+    def set_datatables_config
+      @datatable_config                                       = {}
+      @datatable_config[@klass_key]                           = {}
+      @datatable_config[@klass_key][:cols]                    = @klass.datatable_cols
+      @datatable_config[@klass_key][:searchable_cols]         = @klass.datatable_searchable_cols
+      @datatable_config[@klass_key][:sortable_cols]           = @klass.datatable_sortable_cols
+      @datatable_config[@klass_key][:default_sortable_cols]   = @klass.datatable_default_sortable_cols
+    end
 
 
 

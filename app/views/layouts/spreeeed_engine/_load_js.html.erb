@@ -43,8 +43,23 @@
     $('textarea.autogrow').autoGrow();
 
     $('.icheck').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass: 'iradio_flat-blue'
+    });
+
+    $('label.tree-toggler').click(function () {
+      var icon = $(this).children(".fa");
+      if(icon.hasClass("fa-folder-o")){
+        icon.removeClass("fa-folder-o").addClass("fa-folder-open-o");
+      }else{
+        icon.removeClass("fa-folder-open-o").addClass("fa-folder-o");
+      }
+
+      $(this).parent().children('ul.tree').toggle(300,function(){
+        $(this).parent().toggleClass("open");
+        $(".tree .nscroller").nanoScroller({ preventPageScrolling: true });
+      });
+
     });
 
   });

@@ -13,5 +13,12 @@ module SpreeeedEngine
       "<i class='fa fa-trash-o'></i> #{t('destroy')}".html_safe
     end
 
+    def spinner
+      classes = %w(bounce1 bounce2 bounce3)
+      content_tag :div, class: 'spinner' do
+        classes.collect{ |css| content_tag(:div, '', class: css) }.join.html_safe
+      end
+    end
+
   end
 end

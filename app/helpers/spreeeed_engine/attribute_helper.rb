@@ -9,9 +9,18 @@ module SpreeeedEngine
       [:id] + humanize_identifiers
     end
 
-    def datatable_cell_value(object, attr)
-      return nil if object.new_record?
+    def custom_datatable_cell_value(object, attr)
+      nil
+    end
 
+    def datatable_cell_value(object, attr)
+      return nil if object.nil? || object.new_record?
+
+      custom_cell_value = custom_datatable_cell_value(object, attr)
+      if custom_cell_value.present?
+        return custom_cell_value
+      end
+      
       value = object.send(attr.to_sym)
 
       if primary_humanize_identifiers.include?(attr)

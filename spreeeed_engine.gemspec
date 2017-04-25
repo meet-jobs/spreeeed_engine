@@ -22,9 +22,14 @@ Gem::Specification.new do |s|
   s.add_dependency 'carrierwave'
   s.add_dependency 'mini_magick'
   s.add_dependency 'will_paginate-bootstrap'
+  # View components for Ruby and Rails.
+  s.add_dependency 'cells-rails'
+  s.add_dependency 'cells-erb'
 
 
-  s.add_dependency 'font-awesome-rails'
+  # Stylesheets
+  # s.add_dependency 'font-awesome-rails'
+  s.add_dependency 'rails-assets-font-awesome'
   s.add_dependency 'bootstrap-sass'
   s.add_dependency 'rails-assets-jasny-bootstrap'
   s.add_dependency 'rails-assets-jquery.gritter'
@@ -53,8 +58,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'cocoon'
   s.add_dependency 'aasm'
 
-  # Stylesheets
-  # s.add_dependency 'font-awesome-rails'
 
   # s.add_development_dependency "sqlite3"
 end

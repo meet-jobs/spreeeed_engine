@@ -8,11 +8,11 @@ module DatatableExtension
     end
 
     def datatable_cols
-      displayable_cols
+      displayable_attrs
     end
 
     def datatable_sortable_cols
-      displayable_cols
+      displayable_attrs
     end
 
     def datatable_default_sortable_cols
@@ -20,7 +20,7 @@ module DatatableExtension
     end
 
     def datatable_searchable_cols
-      displayable_cols.select do |attr|
+      displayable_attrs.select do |attr|
         %w(string integer float decimal datetime date time).include?(columns_hash[attr.to_s].type.to_s)
       end
     end

@@ -10,13 +10,13 @@
         <div class="table-responsive">
           <div role="grid" class="dataTables_wrapper form-inline" id="datatable_wrapper">
 
-            <%= render :partial => 'datatable', :locals => { klass: @klass, labels: @datatable_labels, attrs: @datatable_columns, sortable_cols: @datatable_sortable_columns, searchable_cols: @datatable_searchable_cols } %>
+            <%= render :partial => 'datatable', :locals => { klass: @klass, datatable_config: @datatable_config[@klass_key] } %>
 
-<% if @creatable %>
+<% if @active_record_config[@klass_key][:creatable] %>
             <div class="row">
               <div class="col-sm-12">
                 <div class="pull-left">
-                  <%= link_to("#{t('new')} #{@klass.model_name.human}", new_object_path, :class => "btn btn-primary") %>
+                  <%= link_to("#{t('new')} #{@klass.model_name.human}", new_object_path, :class => 'btn btn-primary') %>
                 </div>
               </div>
             </div>

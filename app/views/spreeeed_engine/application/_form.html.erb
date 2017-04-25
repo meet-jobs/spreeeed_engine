@@ -34,7 +34,6 @@
   }
 </style>
 
-
 <%
   path = object.new_record? ? objects_path : object_path(object)
 %>
@@ -42,8 +41,8 @@
 <%= simple_form_for(object, :url => path, :html => { :role => 'form', :class => 'form-horizontal', :'data-parsley-validate' => '', :'data-plus-as-tab' => 'true', :novalidate => nil}) do |f| %>
 <%= render partial: 'error_messages', locals: { object: object, klass: klass } %>
 
-<% if editable_cols.kind_of?(ActiveSupport::OrderedHash) %>
-  <% editable_cols.each do |group, attrs| %>
+<% if active_record_config[:editable_attrs].kind_of?(ActiveSupport::OrderedHash) %>
+  <% active_record_config[:editable_attrs].each do |group, attrs| %>
     <div class="header">
       <h3><%= klass.human_attribute_name(group.to_sym) %></h3>
     </div>
@@ -52,16 +51,16 @@
     <% end %>
   <% end %>
 <% else %>
-  <% editable_cols.each do |attr| %>
+  <% active_record_config[:editable_attrs].each do |attr| %>
 <%= render_input(klass, attr, f) %>
   <% end %>
 <% end %>
 
-  <% hidden_cols.each do |attr| %>
+  <% active_record_config[:hidden_attrs].each do |attr| %>
 <%= render_hidden_input(klass, attr, f) %>
   <% end %>
 
-<% nested_cols.each do |attr, col_class| %>
+<% active_record_config[:nested_attrs].each do |attr, col_class| %>
 <%
   related_object_name = attr
   related_klass       = col_class.constantize
