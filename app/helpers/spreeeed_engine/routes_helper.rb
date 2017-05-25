@@ -6,11 +6,12 @@ module SpreeeedEngine
     end
 
     def resources
-      pluralize?(klass_name) ? klass_name.pluralize : "#{klass_name}_index"
+      _resources = pluralize?(klass_name) ? klass_name.pluralize : "#{klass_name}_index"
+      _resources.gsub('/', '_')
     end
 
     def resource
-      klass_name
+      klass_name.gsub('/', '_')
     end
 
     def new_object_path(opts={})
