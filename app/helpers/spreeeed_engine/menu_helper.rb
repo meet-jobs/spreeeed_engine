@@ -19,7 +19,7 @@ module SpreeeedEngine
           open_css   = (open ? ' open' : '')
           block_css  = (open ? ' style="display: block;"' : '')
 
-          menu += %Q|<li class="parent#{open_css}"><a href="#"><i class="fa fa-folder-open"></i><span>#{label}</span></a>|
+          menu += %Q|<li class="parent#{open_css}"><a href="#"><i class="fa fa-folder"></i><span>#{label}</span></a>|
           menu += %Q|<ul class="sub-menu"#{block_css}>|
           menu += sub_menu
           menu += '</ul>'
