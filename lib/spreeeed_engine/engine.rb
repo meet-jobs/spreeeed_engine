@@ -16,19 +16,15 @@ module SpreeeedEngine
 
 
   require 'bootstrap-sass'
-  # require 'rails-assets-bootstrap-sass'
   require 'rails-assets-font-awesome'
-  # require 'font-awesome-rails'
   require 'rails-assets-jquery.gritter'
   require 'rails-assets-jasny-bootstrap'
-  # require 'parsley-rails'
   require 'rails-assets-parsleyjs'
   require 'rails-assets-jquery-ui'
   require 'rails-assets-datatables'
   require 'rails-assets-icheck'
   require 'rails-assets-bootstrap3-datetimepicker'
   require 'rails-assets-moment'
-  # require 'rails-assets-bootstrap-daterangepicker'
   require 'rails-assets-bootstrap-switch'
   require 'rails-assets-fuelux'
   require 'rails-assets-jquery.cookie'
@@ -36,9 +32,9 @@ module SpreeeedEngine
   require 'rails-assets-nanoscroller'
   require 'rails-assets-select2'
   require 'rails-assets-select2-bootstrap3-css'
-  # require 'rails-assets-bs-slider'
   require 'rails-assets-jquery-option-tree'
   require 'rails-assets-bootstrap3-typeahead'
+  require 'rails-assets-input-autogrow'
 
 
 

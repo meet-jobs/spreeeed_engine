@@ -46,6 +46,7 @@ module SpreeeedEngine
 
       def render_general_input(klass, attr, form_object, html_options={})
         attr_id = attr_identifier(klass, attr)
+        html_options.merge!({class: 'form-control autogrow'})
 
         content_tag :div, :class => 'form-group' do
           content = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
