@@ -29,7 +29,7 @@ module SpreeeedEngine
           @datatable_config[@klass_key][:sortable_cols] = datatable_sortable_columns(
             @klass,
             @datatable_config[@klass_key][:cols],
-            @datatable_config[@klass_key][:sortable_cols]
+            @datatable_config[@klass_key][:default_sortable_cols]
           )
 
           # get all datatable instances
@@ -37,9 +37,9 @@ module SpreeeedEngine
           page      = (params[:iDisplayStart].to_i / per_page.to_i) + 1
 
           proxy     = datatable_instances_proxy(
-          @klass,
-          @datatable_config[@klass_key][:searchable_cols],
-          @datatable_config[@klass_key][:sortable_cols]
+            @klass,
+            @datatable_config[@klass_key][:searchable_cols],
+            @datatable_config[@klass_key][:sortable_cols]
           )
           @instances = datatable_instances(proxy, page, per_page)
           total      = datatable_instances_total(proxy)
