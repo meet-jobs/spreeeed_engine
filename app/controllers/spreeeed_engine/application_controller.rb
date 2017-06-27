@@ -17,25 +17,39 @@ module SpreeeedEngine
 
     def index
       # retrieve the localization of column name
-      # @datatable_labels  = datatable_labels(@klass.new, @datatable_columns)
-      @datatable_config[@klass_key][:labels] = datatable_labels(@klass.new, @datatable_config[@klass_key][:cols])
-
-      # get all sortable datatable columns
-      # @datatable_sortable_columns = datatable_sortable_columns(@klass, @datatable_columns, @datatable_default_sortable_cols)
-      @datatable_config[@klass_key][:sortable_cols] = datatable_sortable_columns(@klass, @datatable_config[@klass_key][:sortable_cols], @datatable_config[@klass_key][:default_sortable_cols])
-
-      # get all datatable instances
-      per_page  = params[:iDisplayLength] || PER_PAGE
-      page      = (params[:iDisplayStart].to_i / per_page.to_i) + 1
-
-      proxy      = datatable_instances_proxy(@klass, @datatable_config[@klass_key][:searchable_cols], @datatable_config[@klass_key][:sortable_cols])
-      @instances = datatable_instances(proxy, page, per_page)
-      total      = datatable_instances_total(proxy)
-
+      @datatable_config[@klass_key][:labels] = datatable_labels(
+        @klass.new,
+        @datatable_config[@klass_key][:cols]
+      )
 
       respond_to do |format|
         format.html # index.html.erb
-        format.json { render json: datatable_raws(@instances, @datatable_config[@klass_key][:cols], total) }
+        format.json {
+          # get all sortable datatable columns
+          @datatable_config[@klass_key][:sortable_cols] = datatable_sortable_columns(
+            @klass,
+            @datatable_config[@klass_key][:cols],
+            @datatable_config[@klass_key][:sortable_cols]
+          )
+
+          # get all datatable instances
+          per_page  = params[:iDisplayLength] || PER_PAGE
+          page      = (params[:iDisplayStart].to_i / per_page.to_i) + 1
+
+          proxy     = datatable_instances_proxy(
+          @klass,
+          @datatable_config[@klass_key][:searchable_cols],
+          @datatable_config[@klass_key][:sortable_cols]
+          )
+          @instances = datatable_instances(proxy, page, per_page)
+          total      = datatable_instances_total(proxy)
+
+          render json: datatable_raws(
+                         @instances,
+                         @datatable_config[@klass_key][:cols],
+                         total
+                       )
+          }
       end
     end
 
@@ -114,7 +128,7 @@ module SpreeeedEngine
     def find_instance
       return nil unless params[:id].present?
 
-      if params[:id].to_s.match(/\D/) && defined?(FriendlyId) && @klass.respond_to?('friendly')
+      if params[:id].to_s.match(/\D/) || ((defined?(FriendlyId) && @klass.respond_to?('friendly')))
         @klass.friendly.find(params[:id])
       else
         @klass.find(params[:id])
@@ -122,8 +136,10 @@ module SpreeeedEngine
     end
 
     def klass_params(klass)
-      nested_params = klass.nested_attrs.collect { |name, class_name| {"#{name}_attributes".to_sym => class_name.constantize.editable_cols + [:id, :_destroy]} }
-      params.require(klass.name.demodulize.underscore.to_sym).permit(klass.editable_attrs + nested_params)
+      nested_params = klass.nested_attrs.collect { |name, class_name|
+        {"#{name}_attributes".to_sym => class_name.constantize.editable_attrs + [:id, :_destroy]}
+      }
+      params.require(klass.name.parameterize.underscore.to_sym).permit(klass.editable_attrs + nested_params)
     end
 
     def set_klass

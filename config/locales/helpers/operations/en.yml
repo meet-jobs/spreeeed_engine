@@ -1,6 +1,10 @@
 ---
 en:
+  sign_in_please: Please sign in
+  password: Password
+  remember_me: Remember me
   save: Save
+  save_changes: Save changes
   cancel: Cancel
   edit: Edit
   destroy: Delete

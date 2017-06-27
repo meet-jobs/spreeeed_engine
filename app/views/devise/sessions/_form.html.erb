@@ -4,7 +4,7 @@
       :html => {:style => 'margin-bottom: 0px !important;', :class => 'form-horizontal'}
     ) do |f| %>
   <div class="content">
-    <h4 class="title">請登入</h4>
+    <h4 class="title"><%= t('sign_in_please') %></h4>
     <%= f.error_notification %>
     <div class="form-group">
       <div class="col-sm-12">
@@ -18,21 +18,21 @@
       <div class="col-sm-12">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-          <%= f.input_field :password, :placeholder => "密碼", :class => "form-control" %>
+          <%= f.input_field :password, :placeholder => t('password'), :class => 'form-control' %>
         </div>
       </div>
     </div>
 
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
+      <div class="col-sm-12">
         <div class="checkbox">
-          <%= f.input :remember_me, :as => :boolean, :label => "記住我", :input_html => { :checked => true } %>
+          <%= f.input :remember_me, :as => :boolean, :label => t('remember_me'), :input_html => { :checked => true } %>
         </div>
       </div>
     </div>
 
   </div>
   <div class="foot">
-    <%= f.button :submit, "登入", :class => "btn btn-primary" %>
+    <%= f.button :submit, t('sign_in'), :class => 'btn btn-primary' %>
   </div>
 <% end %>

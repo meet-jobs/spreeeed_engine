@@ -36,9 +36,11 @@
 
 <%
   path = object.new_record? ? objects_path : object_path(object)
+  form_id = nil
 %>
 
 <%= simple_form_for(object, :url => path, :html => { :role => 'form', :class => 'form-horizontal', :'data-parsley-validate' => '', :'data-plus-as-tab' => 'true', :novalidate => nil}) do |f| %>
+<% form_id = f.options[:html][:id] %>
 <%= render partial: 'error_messages', locals: { object: object, klass: klass } %>
 
 <% if active_record_config[:editable_attrs].kind_of?(ActiveSupport::OrderedHash) %>
@@ -77,7 +79,7 @@
 
 <% if (related_object_name.singularize != related_object_name) || (f.object.send(related_object_name).nil?) %>
 <% linked_name = %Q|<i class="fa fa-plus"></i> #{t('new')} #{related_klass.model_name.human}|.html_safe %>
-<div class="links col-sm-7">
+<div class="links col-sm-9">
     <%= link_to_add_association linked_name, f, related_object_name.to_sym, options %>
 </div>
 <br clear="all" />
@@ -87,8 +89,19 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.button :submit, t('save'), :class => 'btn btn-primary' %>
+      <% submit_text = object.new_record? ? t('save') : t('save_changes') %>
+      <%= f.button :submit, submit_text, :class => 'btn btn-primary' %>
       <%= f.button :button, t('cancel'), :type => 'reset', :class => 'btn btn-default' %>
     </div>
   </div>
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    $("#<%= form_id %>").dirrty().on("dirty", function () {
+      $("#form-state").html("Modified").attr('class', 'btn btn-warning');
+    }).on("clean", function () {
+      $("#form-state").html("Clean").attr('class', 'btn btn-default');
+    });
+  });
+</script>

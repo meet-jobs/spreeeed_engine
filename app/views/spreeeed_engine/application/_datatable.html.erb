@@ -33,13 +33,13 @@
       },
       bServerSide: true,
       sAjaxSource: '<%= objects_path %>',
-      aoColumns: <%= render_sortable_cols(klass, datatable_config[:cols]).to_json.html_safe %>,
-      aaSorting: <%= render_default_sortable_cols(datatable_config[:sortable_cols], datatable_config[:cols]).to_json.html_safe %>,
+      aoColumns: <%= render_sortable_cols(datatable_config[:cols], datatable_config[:sortable_cols]).to_json.html_safe %>,
+      aaSorting: <%= render_default_sortable_cols(datatable_config[:cols], datatable_config[:default_sortable_cols]).to_json.html_safe %>,
     });
 
     //Search input style
     if ($("#<%= klass.datatable_id %>").length > 0) {
-      $('.dataTables_filter input').addClass('form-control').attr('style', 'width:300px;').attr('placeholder', '<%= search_box_placeholder(klass, datatable_config[:searchable_cols]) %>');
+      $('.dataTables_filter input').addClass('form-control').addClass('autogrow').attr('placeholder', '<%= search_box_placeholder(klass, datatable_config[:searchable_cols]) %>');
       $('.dataTables_length select').addClass('form-control');
     }
   });

@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'carrierwave'
   s.add_dependency 'mini_magick'
   s.add_dependency 'will_paginate-bootstrap'
+  s.add_dependency 'wysiwyg-rails'
 
   # View components for Ruby and Rails.
   s.add_dependency 'cells-rails'
@@ -52,6 +53,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails-assets-jquery-option-tree'
   s.add_dependency 'rails-assets-bootstrap3-typeahead'
   s.add_dependency 'rails-assets-input-autogrow'
+  s.add_dependency 'rails-assets-dirrty'
 
 
 end

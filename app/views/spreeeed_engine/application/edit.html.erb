@@ -3,7 +3,11 @@
     <div class="block-flat">
 
       <div class="header">
-        <h3><i class="fa <%= @klass.icon %>"></i> <%= t('edit') %> <%= @klass.model_name.human %> - <%= object_name(@object) %></h3>
+        <h3 style="float: left">
+          <i class="fa <%= @klass.icon %>"></i> <%= t('edit') %> <%= @klass.model_name.human %> - <%= object_name(@object) %>
+        </h3>
+        <span id="form-state" class="btn btn-default" style="float: right">Clean</span>
+        <br clear="all" />
       </div>
 
       <div class="content">

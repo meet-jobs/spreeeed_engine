@@ -17,10 +17,8 @@ module SpreeeedEngine
       return nil if object.nil? || object.new_record?
 
       custom_cell_value = custom_datatable_cell_value(object, attr)
-      if custom_cell_value.present?
-        return custom_cell_value
-      end
-      
+      return custom_cell_value if custom_cell_value.present?
+
       value = object.send(attr.to_sym)
 
       if primary_humanize_identifiers.include?(attr)
@@ -53,6 +51,10 @@ module SpreeeedEngine
 
       if attr == :password
         return password_mask(value)
+      end
+
+      if object.class.columns_hash[attr.to_s].type == :text
+        return simple_format(value)
       end
 
       format_value(value)
@@ -88,7 +90,7 @@ module SpreeeedEngine
     def format_value(value)
       case value
         when String
-          simple_format(value)
+          value
         when Integer || BigDecimal || Fixnum
           number_with_delimiter(value)
         when ActiveSupport::TimeWithZone

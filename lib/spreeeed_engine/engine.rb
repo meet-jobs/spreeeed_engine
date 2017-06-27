@@ -4,12 +4,14 @@ module SpreeeedEngine
   require 'spreeeed_engine/datatable_extension'
   require 'spreeeed_engine/regexp_to_js'
   require 'spreeeed_engine/aasm_run_time'
+  require 'spreeeed_engine/acts_as_option_tree'
 
   require 'devise'
   require 'simple_form'
   require 'cocoon'
   require 'aasm'
   require 'will_paginate-bootstrap'
+  require 'wysiwyg-rails'
   require 'cells-rails'
   require 'cells-erb'
 
@@ -35,6 +37,7 @@ module SpreeeedEngine
   require 'rails-assets-jquery-option-tree'
   require 'rails-assets-bootstrap3-typeahead'
   require 'rails-assets-input-autogrow'
+  require 'rails-assets-dirrty'
 
 
 

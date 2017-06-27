@@ -41,7 +41,8 @@ module SpreeeedEngine
       end
 
       def render_hidden_input(klass, attr, form_object, html_options={})
-        form_object.hidden_field attr.to_sym, {:value => form_object.object.send(attr.to_sym)}
+        value = html_options[:value] || form_object.object.send(attr.to_sym)
+        form_object.hidden_field attr.to_sym, {value: value}
       end
 
       def render_general_input(klass, attr, form_object, html_options={})
@@ -83,6 +84,32 @@ module SpreeeedEngine
           end
 
           content
+        end
+      end
+
+      def render_wysiwyg_input(klass, attr, form_object, html_options={}, froala_options={})
+        attr_id = attr_identifier(klass, attr)
+        value = form_object.object.send(attr.to_sym)
+        value = value ? value.strip : ''
+        html_options.merge!({
+                            class: 'form-control',
+                            # value: simple_format(form_object.object.send(attr.to_sym).strip, {}, :sanitize => false),
+                            value: value,
+                            })
+
+        content_tag :div, :class => 'form-group' do
+          content = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
+            klass.human_attribute_name(attr.to_sym)
+          end
+
+          content += content_tag :div, :class => 'col-sm-6' do
+            sub_content = form_object.input_field attr.to_sym, bind_validators(klass, attr).merge(html_options)
+            sub_content += content_tag(:div, '', :id => "#{attr_id}-error")
+
+            sub_content
+          end
+
+          (content + %Q|<script>$(document).ready(function() { $("##{attr_id}").froalaEditor(#{froala_options.to_json}); });</script>|.html_safe)
         end
       end
 
@@ -307,6 +334,11 @@ module SpreeeedEngine
       end
 
       def render_association_input(klass, attr, form_object, association, label_method=:name)
+        #
+        # association.options[:polymorphic] == true
+        # could not generate suitable input
+        #
+        raise "Polymorphic association #{klass.name} can not be determine specified model by #{attr}" if association.options[:polymorphic] == true
         collection  = association.class_name.camelize.constantize.all.collect { |item| [item.send(label_method), item.id] }
         render_select_input(klass, attr, form_object, collection)
       end
@@ -446,6 +478,36 @@ module SpreeeedEngine
           [klass.human_attribute_name(i18n_key), state.name]
         end
         render_select_input(klass, attr, form_object, collection)
+      end
+
+      def render_option_tree_input(klass, attr, form_object, options={})
+        default_options = {
+          :as                 => :option_tree,
+          :option_tree_config => {:choose => 'Choose...'},
+        }
+        default_options[:klass]    = options[:klass]
+        default_options[:sort_col] = options[:sort_col] if options[:sort_col]
+        default_options[:sort_by]  = options[:sort_by] if options[:sort_by]
+
+        input_html_options = options[:input_html] || {}
+        input_html_options = default_options.merge(input_html_options)
+
+        attr_id = attr_identifier(klass, attr)
+
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
+            klass.human_attribute_name(attr.to_sym)
+          end
+
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            content_tag :div, :class => 'input-group' do
+              html_options = bind_validators(klass, attr).merge(input_html_options)
+              form_object.input_field(attr.to_sym, html_options)
+            end
+          end
+
+          c1
+        end
       end
 
     end

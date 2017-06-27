@@ -7,7 +7,14 @@ module SpreeeedEngine
         render_radio_input(klass, attr, form_object, [I18n.t('male'), I18n.t('female')])
       end
 
+      def render_custom_input(klass, attr, form_object)
+        nil
+      end
+
       def render_input(klass, attr, form_object)
+        custom_input = render_custom_input(klass, attr, form_object)
+        return custom_input if custom_input.present?
+
         if (association = belongs_to_association(klass, {foreign_key: attr.to_s}))
           return render_association_input(klass, attr, form_object, association)
         end

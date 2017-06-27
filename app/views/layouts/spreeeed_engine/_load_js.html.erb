@@ -19,6 +19,8 @@
   });
 <% end %>
 
+  $('a.gritter-close').text('');
+
   JoelPurra.PlusAsTab.setOptions({key: 13});
 
   $(document).ready(function() {
@@ -61,6 +63,8 @@
       });
 
     });
+
+    $('input.autogrow').inputAutogrow({maxWidth: 500, trailingSpace: 10});
 
   });
 </script>

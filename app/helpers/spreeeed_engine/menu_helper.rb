@@ -11,7 +11,7 @@ module SpreeeedEngine
         else
           sub_menu   = ''
           paths      = []
-          attrs.each do |_label, _attrs|
+          attrs[:children].each do |_label, _attrs|
             paths << _attrs[:path].split('/')[1]
             sub_menu += render_menu(_label, _attrs)
           end
@@ -19,7 +19,7 @@ module SpreeeedEngine
           open_css   = (open ? ' open' : '')
           block_css  = (open ? ' style="display: block;"' : '')
 
-          menu += %Q|<li class="parent#{open_css}"><a href="#"><i class="fa fa-folder"></i><span>#{label}</span></a>|
+          menu += %Q|<li class="parent#{open_css}"><a href="#"><i class="#{attrs[:icon_css]}"></i><span>#{label}</span></a>|
           menu += %Q|<ul class="sub-menu"#{block_css}>|
           menu += sub_menu
           menu += '</ul>'
