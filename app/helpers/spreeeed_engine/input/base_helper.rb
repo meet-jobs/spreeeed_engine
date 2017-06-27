@@ -390,7 +390,7 @@ module SpreeeedEngine
           c1 += content_tag :div, :class => "col-sm-6" do
             c2 = content_tag :div, :'data-provides' => 'fileinput', :class => "fileinput fileinput-new" do
               c3 = ''
-              if (url = form_object.object.send(attr.to_sym).url)
+              if (url = form_object.object.send(attr.to_sym).try(:url))
                 c3 += content_tag :div, :class => 'fileinput-new thumbnail' do
                   content_tag :img, :src => url, :width => 200 do
                   end
