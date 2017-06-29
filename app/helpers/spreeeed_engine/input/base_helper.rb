@@ -483,7 +483,7 @@ module SpreeeedEngine
       def render_option_tree_input(klass, attr, form_object, options={})
         default_options = {
           :as                 => :option_tree,
-          :option_tree_config => {:choose => 'Choose...'},
+          :option_tree_config => {:choose => I18n.t('choose')},
         }
         default_options[:klass]    = options[:klass]
         default_options[:sort_col] = options[:sort_col] if options[:sort_col]
