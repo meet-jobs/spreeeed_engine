@@ -19,6 +19,12 @@ module SpreeeedEngine
           return render_association_input(klass, attr, form_object, association)
         end
 
+        if defined?(ActsAsTaggableOn) && (tags = klass.new.try(:tag_types))
+          if tags.include?(attr.to_s.gsub('_list', '').pluralize.to_sym)
+            return render_tags_input(klass, attr, form_object, form_object.object.send(attr))
+          end
+        end
+
         type = klass.columns_hash[attr.to_s].type rescue :string
 
         case type

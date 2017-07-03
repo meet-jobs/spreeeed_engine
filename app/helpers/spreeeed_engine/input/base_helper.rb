@@ -175,7 +175,7 @@ module SpreeeedEngine
         end
       end
 
-      def render_tags_input(klass, attr, form_object, tags=0)
+      def render_tags_input(klass, attr, form_object, tags=[])
         attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => 'form-group' do
