@@ -38,6 +38,7 @@ module SpreeeedEngine
   require 'rails-assets-bootstrap3-typeahead'
   require 'rails-assets-input-autogrow'
   require 'rails-assets-dirrty'
+  require 'rails-assets-typeahead.js'
 
 
 

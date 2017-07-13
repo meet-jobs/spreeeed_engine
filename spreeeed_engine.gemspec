@@ -54,6 +54,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails-assets-bootstrap3-typeahead'
   s.add_dependency 'rails-assets-input-autogrow'
   s.add_dependency 'rails-assets-dirrty'
+  s.add_dependency 'rails-assets-typeahead.js'
 
 
 end

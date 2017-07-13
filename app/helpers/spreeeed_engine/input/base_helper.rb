@@ -194,6 +194,7 @@ module SpreeeedEngine
 <script>
   $(document).ready(function() {
     $("##{attr_id}").select2({
+      placeholder: 'Select an option',
       tags: #{tags.to_json},
       width: 'resolve',
     });

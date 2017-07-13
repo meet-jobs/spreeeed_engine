@@ -41,6 +41,7 @@
 //= require bootstrap3-typeahead
 //= require input-autogrow
 //= require dirrty
+//= require typeahead.js
 
 //= require froala_editor.min
 //= require plugins/align.min
