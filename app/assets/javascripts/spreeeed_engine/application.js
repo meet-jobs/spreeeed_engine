@@ -42,6 +42,7 @@
 //= require input-autogrow
 //= require dirrty
 //= require bootstrap3-typeahead
+//= require bootstrap-tagsinput
 
 //= require froala_editor.min
 //= require plugins/align.min

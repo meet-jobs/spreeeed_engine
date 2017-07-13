@@ -39,6 +39,7 @@ module SpreeeedEngine
   require 'rails-assets-input-autogrow'
   require 'rails-assets-dirrty'
   require 'rails-assets-typeahead.js'
+  require 'rails-assets-bootstrap-tagsinput'
 
 
 
