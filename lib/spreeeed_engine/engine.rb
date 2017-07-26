@@ -40,7 +40,7 @@ module SpreeeedEngine
   require 'rails-assets-dirrty'
   require 'rails-assets-typeahead.js'
   require 'rails-assets-bootstrap-tagsinput'
-
+  require 'rails-assets-bootstrap-daterangepicker'
 
 
   class << self

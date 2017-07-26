@@ -56,6 +56,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails-assets-dirrty'
   s.add_dependency 'rails-assets-typeahead.js'
   s.add_dependency 'rails-assets-bootstrap-tagsinput'
+  s.add_dependency 'rails-assets-bootstrap-daterangepicker'
 
 
 end

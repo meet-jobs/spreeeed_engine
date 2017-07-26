@@ -43,6 +43,7 @@
 //= require dirrty
 //= require bootstrap3-typeahead
 //= require bootstrap-tagsinput
+//= require bootstrap-daterangepicker
 
 //= require froala_editor.min
 //= require plugins/align.min
