@@ -139,7 +139,7 @@ module SpreeeedEngine
       nested_params = klass.nested_attrs.collect { |name, class_name|
         {"#{name}_attributes".to_sym => class_name.constantize.editable_attrs + [:id, :_destroy]}
       }
-      params.require(klass.name.parameterize.underscore.to_sym).permit(klass.editable_attrs + nested_params)
+      params.require(klass.name.underscore.parameterize.to_sym).permit(klass.editable_attrs + nested_params)
     end
 
     def set_klass

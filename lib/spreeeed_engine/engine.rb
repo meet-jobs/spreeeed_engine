@@ -73,6 +73,8 @@ module SpreeeedEngine
 
     Devise.parent_controller = 'SpreeeedEngine::Devise::ParentController'
 
+    CarrierWave::Uploader::Base.prepend SpreeeedEngine::Patch::CarrierWave::Uploader::Serialization
+
     isolate_namespace SpreeeedEngine
   end
 end
