@@ -1,5 +1,5 @@
 module SpreeeedEngine
-  module Locales
+  module Locale
     module Generators
       class ModelGenerator < Rails::Generators::NamedBase
       
