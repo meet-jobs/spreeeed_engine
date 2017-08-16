@@ -1,0 +1,8 @@
+---
+<%= lang %>:
+  activerecord:
+    models:
+      <%= @model_name %>:
+    attributes:
+      <%= @model_name %>:
+<% @columns.each do |column_name| %>        <%= column_name %>:<%= "\n" %><% end %>
