@@ -4,7 +4,7 @@
 
       <div class="header">
         <h3 style="float: left">
-          <i class="fa <%= @klass.icon %>"></i> <%= t('edit') %> <%= @klass.model_name.human %> - <%= object_name(@object) %>
+          <i class="fa <%= @klass.icon %>"></i> <%= t('operations.edit') %> <%= @klass.model_name.human %> - <%= object_name(@object) %>
         </h3>
         <span id="form-state" class="btn btn-default" style="float: right">Clean</span>
         <br clear="all" />
@@ -13,7 +13,7 @@
       <div class="content">
 <%= render :partial => 'form', :locals => { object: @object, klass: @klass, active_record_config: @active_record_config[@klass_key] } %>
 
-        <%= link_to t('back'), objects_path %>
+        <%= link_to t('operations.back'), objects_path %>
       </div>
 
     </div>

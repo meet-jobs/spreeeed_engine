@@ -219,7 +219,7 @@ module SpreeeedEngine
             c2 = content_tag :div, :class => 'input-group' do
               select2_options = {
                 :class => "#{attr_id.__id__} select2 form-control",
-                # :'data-placeholder' => I18n.t('select_one'),
+                # :'data-placeholder' => I18n.t('operations.select_one'),
                 # :'data-width' => 'resolve',
                 # :'data-minimumInputLength' => 1,
                 # :'data-data' => options[:collection].to_json,
@@ -256,7 +256,7 @@ module SpreeeedEngine
 <script>
   $(document).ready(function() {
     $("##{attr_id}").select2({
-      placeholder: '#{I18n.t('select_one')}',
+      placeholder: '#{I18n.t('operations.select_one')}',
       width: 'resolve',
       minimumInputLength: 1,
       ajax: {
@@ -402,16 +402,16 @@ module SpreeeedEngine
               c3 += content_tag :div do
                 c4 = content_tag :span, :class => 'btn btn-primary btn-file' do
                   c5 = content_tag :span, :class => 'fileinput-new' do
-                    I18n.t('choose_photo')
+                    I18n.t('operations.choose_photo')
                   end
                   c5 += content_tag :span, :class => 'fileinput-exists' do
-                    I18n.t('change')
+                    I18n.t('operations.change')
                   end
                   c5 += form_object.input_field attr.to_sym, bind_validators(klass, attr, {:accept => "image/*", :class => ""})
                   c5
                 end
                 c4 += content_tag :a, :'data-dismiss' => 'fileinput', :class => 'btn btn-danger fileinput-exists' do
-                  I18n.t('remove_photo')
+                  I18n.t('operations.remove_photo')
                 end
                 c4
               end
@@ -448,16 +448,16 @@ module SpreeeedEngine
               c3 += content_tag :div do
                 c4 = content_tag :span, :class => 'btn btn-primary btn-file' do
                   c5 = content_tag :span, :class => 'fileinput-new' do
-                    I18n.t('choose_file')
+                    I18n.t('operations.choose_file')
                   end
                   c5 += content_tag :span, :class => 'fileinput-exists' do
-                    I18n.t('change')
+                    I18n.t('operations.change')
                   end
                   c5 += form_object.input_field attr.to_sym, bind_validators(klass, attr, {:class => ""})
                   c5
                 end
                 c4 += content_tag :a, :'data-dismiss' => 'fileinput', :class => 'btn btn-danger fileinput-exists' do
-                  I18n.t('remove_file')
+                  I18n.t('operations.remove_file')
                 end
                 c4
               end
@@ -484,7 +484,7 @@ module SpreeeedEngine
       def render_option_tree_input(klass, attr, form_object, options={})
         default_options = {
           :as                 => :option_tree,
-          :option_tree_config => {:choose => I18n.t('choose')},
+          :option_tree_config => {:choose => I18n.t('operations.choose')},
         }
         default_options[:klass]    = options[:klass]
         default_options[:sort_col] = options[:sort_col] if options[:sort_col]

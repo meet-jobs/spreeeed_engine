@@ -33,7 +33,7 @@ module SpreeeedEngine
 
     def root_menu
       menu = ActiveSupport::OrderedHash.new
-      menu[t('frontend').to_sym] = {
+      menu[t('menu.frontend').to_sym] = {
         :icon_css => 'fa-home',
         :path     => root_path,
       }
@@ -48,7 +48,7 @@ module SpreeeedEngine
         :path     => SpreeeedEngine::Engine.routes.url_helpers.fake_photos_path,
       }
 
-      # menu[t('sign_out').to_sym] = {
+      # menu[t('operations.sign_out').to_sym] = {
       #   :icon_css => 'fa-sign-out',
       #   :path     => send("destroy_#{SpreeeedEngine.devise_auth_resource}_session_path"),
       # }

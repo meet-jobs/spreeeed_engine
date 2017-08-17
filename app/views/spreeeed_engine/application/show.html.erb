@@ -17,7 +17,7 @@
         </table>
         <div class="content">
           <%= link_to(edit_label, edit_object_path(@object), class: 'btn btn-primary') if @active_record_config[@klass_key][:editable] %>
-          <%= link_to(destroy_label, object_path(@object), 'data-confirm': "#{t('destroy')} #{object_name(@object)}?", :method => :delete, :class => 'btn btn-danger pull-right') if @active_record_config[@klass_key][:deletable] %>
+          <%= link_to(destroy_label, object_path(@object), 'data-confirm': "#{t('operations.destroy')} #{object_name(@object)}?", :method => :delete, :class => 'btn btn-danger pull-right') if @active_record_config[@klass_key][:deletable] %>
         </div>
       </div>
     </div>
@@ -26,4 +26,4 @@
 
 </div>
 
-<%= link_to t('back'), objects_path %>
+<%= link_to t('operations.back'), objects_path %>
