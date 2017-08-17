@@ -241,7 +241,7 @@ module SpreeeedEngine
 <script>
   $(document).ready(function() {
     $(".#{attr_id.__id__}").select2({
-      placeholder: '#{I18n.t('select_one')}',
+      placeholder: '#{I18n.t('operations.select_one')}',
       width: 'resolve',
       minimumInputLength: 1,
       data: #{options[:collection].to_json},
