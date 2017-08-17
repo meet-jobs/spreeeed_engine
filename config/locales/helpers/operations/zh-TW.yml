@@ -2,6 +2,7 @@
 zh-TW:
   operations:
     save: 儲存
+    save_changes: 更新
     cancel: 取消
     edit: 編輯
     destroy: 刪除
