@@ -41,7 +41,7 @@ module SpreeeedEngine
         return nil
       end
 
-      if defined?(AASM) && object.class.try(:aasm) && (object.class.aasm.state_machine.config.column == attr)
+      if Application.defined_enums.has_key?(attr.to_s) || (defined?(AASM) && object.class.try(:aasm) && (object.class.aasm.state_machine.config.column == attr))
         i18n_key = "#{attr}/#{value}".to_sym
         return object.class.human_attribute_name(i18n_key)
       end
