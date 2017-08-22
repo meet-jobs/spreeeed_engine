@@ -22,7 +22,7 @@ module SpreeeedEngine
 
         source_root File.expand_path('../templates', __FILE__)
 
-        def create_concern_file
+        def create_concern_model
           @klass       = name.titleize.classify.constantize
           model_name   = name.titleize.singularize.downcase
           @namespaces  = model_name.split('/')
@@ -31,6 +31,17 @@ module SpreeeedEngine
           template 'model.rb',
                    "app/models/concerns/spreeeed_engine/models/#{model_name}.rb"
         end
+
+        def create_concern_datatable
+          @klass       = name.titleize.classify.constantize
+          model_name   = name.titleize.singularize.downcase
+          @namespaces  = model_name.split('/')
+          @indent      = '  ' * (@namespaces.size + 2)
+          @methods     = [:datatable_cols, :datatable_searchable_cols, :datatable_sortable_cols, :datatable_default_sortable_cols]
+          template 'datatable.rb',
+                   "app/models/concerns/spreeeed_engine/datatables/#{model_name}.rb"
+        end
+
       end
     end
   end
