@@ -1,5 +1,5 @@
 module SpreeeedEngine
-  module Concerns
+  module Config
     module Generators
       class ConcernsGenerator < Rails::Generators::NamedBase
       
