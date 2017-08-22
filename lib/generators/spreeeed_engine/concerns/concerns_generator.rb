@@ -1,7 +1,7 @@
 module SpreeeedEngine
   module Concerns
     module Generators
-      class ModelGenerator < Rails::Generators::NamedBase
+      class ConcernsGenerator < Rails::Generators::NamedBase
       
         desc <<-DESC.strip_heredoc
           Generate spreeeed_engine active_record extend attributes
