@@ -55,6 +55,20 @@ module SpreeeedEngine
                 if klass.respond_to?(attr.to_s.pluralize.to_sym)
                   collection = klass.send(attr.to_s.pluralize.to_sym)
 
+                  using_i18n = true
+                  model_name = klass.name.titleize.singularize.downcase
+                  collection.each do |key, value|
+                    i18n_key = "activerecord.attributes.#{model_name}.#{attr}/#{key}"
+                    using_i18n &&= I18n.exists?(i18n_key, I18n.locale)
+                  end
+
+                  if using_i18n
+                    collection = collection.collect do |key, value|
+                      i18n_key = "#{attr}/#{key}".to_sym
+                      [klass.human_attribute_name(i18n_key), key]
+                    end
+                  end
+
                   render_select_input(klass, attr, form_object, collection)
                 else
                   render_general_input(klass, attr, form_object)
