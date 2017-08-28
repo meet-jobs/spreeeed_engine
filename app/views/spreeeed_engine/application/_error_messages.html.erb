@@ -1,11 +1,10 @@
 <% if object.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(object.errors.count, 'error') %> prohibited this <%= klass.model_name.human %> from being saved:</h2>
-
-    <ul>
-      <% object.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+  <h2><%= klass.model_name.human %> 儲存時發生 <%= pluralize(object.errors.count, 'error') %> 個錯誤</h2>
+  <% object.errors.full_messages.each do |msg| %>
+  <div class="alert alert-warning alert-white-alt2 rounded">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <div class="icon"><i class="fa fa-warning"></i></div>
+    <strong>警告！</strong> <%= msg %>
   </div>
+  <% end %>
 <% end %>
