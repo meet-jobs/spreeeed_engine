@@ -101,8 +101,8 @@ module SpreeeedEngine
       respond_to do |format|
         _params = klass_params(@klass)
         if @object.update_attributes(_params)
-          # format.html { redirect_to [SpreeeedEngine.namespace.to_sym, @object], notice: "#{@klass_name} was successfully updated." }
-          format.html { redirect_to object_path(@object), notice: "#{@klass_name} was successfully updated." }
+          # format.html { redirect_to [SpreeeedEngine.namespace.to_sym, @object], notice: "#{@klass.name} was successfully updated." }
+          format.html { redirect_to object_path(@object), notice: "#{@klass.name} was successfully updated." }
           # format.json { head :no_content }
         else
           format.html { render action: 'edit' }
@@ -116,7 +116,7 @@ module SpreeeedEngine
       @object.destroy
 
       respond_to do |format|
-        # format.html { redirect_to send("#{SpreeeedEngine.namespace}_#{@klass_name.underscore.pluralize}_url") }
+        # format.html { redirect_to send("#{SpreeeedEngine.namespace}_#{@klass.name.underscore.pluralize}_url") }
         format.html { redirect_to objects_path }
         # format.json { head :no_content }
       end
