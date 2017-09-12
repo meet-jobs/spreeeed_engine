@@ -20,6 +20,9 @@
 <% end %>
 
   $('a.gritter-close').text('');
+  $.extend($.gritter.options, { 
+    _tpl_close: '<a class="gritter-close" href="#" tabindex="1"> </a>'
+  });
 
   JoelPurra.PlusAsTab.setOptions({key: 13});
 
