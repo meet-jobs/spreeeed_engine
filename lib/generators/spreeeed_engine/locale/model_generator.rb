@@ -33,18 +33,10 @@ module SpreeeedEngine
 
         argument :lang, type: :string, default: 'en'
 
-        def get_klass(name)
-          Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
-        end
-                
-        def get_model_name(klass)
-          klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
-        end
-
         # http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html
         def create_locale_file
-          klass        = get_klass(name)
-          @model_name  = get_model_name(klass)
+          klass        = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
+          @model_name  = @klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
           @columns     = klass.column_names
           template 'en.yml',
                    "config/locales/models/#{@model_name}/#{lang}.yml"

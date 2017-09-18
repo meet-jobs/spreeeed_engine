@@ -21,18 +21,10 @@ module SpreeeedEngine
         DESC
 
         source_root File.expand_path('../templates', __FILE__)
-                
-        def get_klass(name)
-          Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
-        end
-                
-        def get_folder_name(klass)
-          klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
-        end
 
         def create_concern_model
-          @klass       = get_klass
-          folder_name  = get_folder_name(@klass)
+          @klass       = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
+          folder_name  = @klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
           @namespaces  = folder_name.split('/')
           @indent      = '  ' * (@namespaces.size + 2)
           @methods     = [:displayable_attrs, :editable_attrs, :hidden_attrs]
@@ -41,8 +33,8 @@ module SpreeeedEngine
         end
 
         def create_concern_datatable
-          @klass       = get_klass
-          folder_name   = get_folder_name(@klass)
+          @klass       = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
+          folder_name   = @klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
           @namespaces  = folder_name.split('/')
           @indent      = '  ' * (@namespaces.size + 2)
           @methods     = [:datatable_cols, :datatable_searchable_cols, :datatable_sortable_cols, :datatable_default_sortable_cols]
