@@ -58,7 +58,7 @@ module SpreeeedEngine
         return password_mask(value)
       end
 
-      if object.class.columns_hash[attr.to_s].type == :text
+      if object.class.columns_hash.keys.include?(attr.to_s) && object.class.columns_hash[attr.to_s].type == :text
         return simple_format(value)
       end
 
