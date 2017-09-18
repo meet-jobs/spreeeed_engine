@@ -21,25 +21,33 @@ module SpreeeedEngine
         DESC
 
         source_root File.expand_path('../templates', __FILE__)
+                
+        def get_klass(name)
+          Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
+        end
+                
+        def get_folder_name(klass)
+          klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
+        end
 
         def create_concern_model
-          @klass       = name.titleize.classify.constantize
-          model_name   = name.titleize.singularize.downcase
-          @namespaces  = model_name.split('/')
+          @klass       = get_klass
+          folder_name  = get_folder_name(@klass)
+          @namespaces  = folder_name.split('/')
           @indent      = '  ' * (@namespaces.size + 2)
           @methods     = [:displayable_attrs, :editable_attrs, :hidden_attrs]
           template 'model.rb',
-                   "app/models/concerns/spreeeed_engine/models/#{model_name}.rb"
+                   "app/models/concerns/spreeeed_engine/models/#{folder_name}.rb"
         end
 
         def create_concern_datatable
-          @klass       = name.titleize.classify.constantize
-          model_name   = name.titleize.singularize.downcase
-          @namespaces  = model_name.split('/')
+          @klass       = get_klass
+          folder_name   = get_folder_name(@klass)
+          @namespaces  = folder_name.split('/')
           @indent      = '  ' * (@namespaces.size + 2)
           @methods     = [:datatable_cols, :datatable_searchable_cols, :datatable_sortable_cols, :datatable_default_sortable_cols]
           template 'datatable.rb',
-                   "app/models/concerns/spreeeed_engine/datatables/#{model_name}.rb"
+                   "app/models/concerns/spreeeed_engine/datatables/#{folder_name}.rb"
         end
 
       end
