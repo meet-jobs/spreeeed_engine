@@ -1,6 +1,6 @@
 module SpreeeedEngine
   module Datatables
-<% @namespaces.each_with_index do |namespace, i| %><%= '  ' * (i+2) %>module <%= namespace.titleize.classify %><%= "\n" %><% end %>
+<% @namespaces.each_with_index do |namespace, i| %><%= '  ' * (i+2) %>module <%= @klass.name %><%= "\n" %><% end %>
 <%= @indent %>extend ActiveSupport::Concern
 
 <%= @indent %>class_methods do
