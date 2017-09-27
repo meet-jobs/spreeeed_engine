@@ -18,6 +18,7 @@
         <div class="content">
           <%= link_to(edit_label, edit_object_path(@object), class: 'btn btn-primary') if @active_record_config[@klass_key][:editable] %>
           <%= link_to(destroy_label, object_path(@object), 'data-confirm': "#{t('operations.destroy')} #{object_name(@object)}?", :method => :delete, :class => 'btn btn-danger pull-right') if @active_record_config[@klass_key][:deletable] %>
+          <br clear="all" />
         </div>
       </div>
     </div>
