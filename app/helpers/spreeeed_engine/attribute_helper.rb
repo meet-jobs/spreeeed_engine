@@ -9,62 +9,6 @@ module SpreeeedEngine
       [:id] + humanize_identifiers
     end
 
-    def custom_datatable_cell_value(object, attr)
-      nil
-    end
-
-    def datatable_cell_value(object, attr)
-      return nil if object.nil? || object.new_record?
-
-      custom_cell_value = custom_datatable_cell_value(object, attr)
-      return custom_cell_value if custom_cell_value.present?
-
-      value = object.send(attr.to_sym)
-
-      if primary_humanize_identifiers.include?(attr)
-        return link_to(value, object_path(object), {:target => '_blank'})
-      end
-
-      if belongs_to_association?(object.class, {name: attr.to_s})
-        humanize_identifiers.each do |related_object_name|
-          if value.respond_to?(related_object_name)
-            return datatable_cell_value(value, related_object_name)
-          end
-        end
-        return datatable_cell_value(value, :id)
-      end
-
-      if defined?(CarrierWave::Uploader::Base) && value.kind_of?(CarrierWave::Uploader::Base)
-        if value.class.const_defined? 'MiniMagick'
-          return asset_image_tag(value, [:datatable, :square])
-        end
-        return nil
-      end
-
-      if object.class.try(attr.to_s.pluralize.to_sym) || (defined?(AASM) && object.class.try(:aasm) && (object.class.aasm.state_machine.config.column == attr))
-        i18n_key = "#{attr}/#{value}".to_sym
-        return object.class.human_attribute_name(i18n_key)
-      end
-
-      if attr == :email
-        return mail_to(value)
-      end
-
-      if attr == :phone
-        return tel_to(value)
-      end
-
-      if attr == :password
-        return password_mask(value)
-      end
-
-      if object.class.columns_hash.keys.include?(attr.to_s) && object.class.columns_hash[attr.to_s].type == :text
-        return simple_format(value)
-      end
-
-      format_value(value)
-    end
-
     def display_attribute(object, attr)
       value = object.send(attr.to_sym)
 

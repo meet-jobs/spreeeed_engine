@@ -26,10 +26,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'mini_magick'
   s.add_dependency 'will_paginate-bootstrap'
   s.add_dependency 'wysiwyg-rails'
+  s.add_dependency 'rails_autolink'
 
   # View components for Ruby and Rails.
-  s.add_dependency 'cells-rails'
-  s.add_dependency 'cells-erb'
+  # s.add_dependency 'cells-rails'
+  # s.add_dependency 'cells-erb'
 
 
   # Stylesheets

@@ -13,8 +13,9 @@ module SpreeeedEngine
   require 'aasm'
   require 'will_paginate-bootstrap'
   require 'wysiwyg-rails'
-  require 'cells-rails'
-  require 'cells-erb'
+  require 'rails_autolink'
+  # require 'cells-rails'
+  # require 'cells-erb'
 
 
 
