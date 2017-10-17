@@ -5,11 +5,12 @@ module SpreeeedEngine
   require 'spreeeed_engine/regexp_to_js'
   require 'spreeeed_engine/aasm_run_time'
   require 'spreeeed_engine/acts_as_option_tree'
-  require 'spreeeed_engine/patch/carrier_wave/uploader/serialization'
 
   require 'devise'
   require 'simple_form'
   require 'cocoon'
+  require 'carrier_wave'
+  require 'spreeeed_engine/patch/carrier_wave/uploader/serialization'
   require 'aasm'
   require 'will_paginate-bootstrap'
   require 'wysiwyg-rails'
