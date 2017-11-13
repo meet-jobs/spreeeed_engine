@@ -25,7 +25,7 @@ module SpreeeedEngine
         def create_concern_model
           @klass       = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
           folder_name  = @klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
-          @namespaces  = folder_name.split('/').map(&:titleize)
+          @namespaces  = folder_name.split('/').map(&:titleize).collect{ |e| e.delete(' ') }
           @indent      = '  ' * (@namespaces.size + 2)
           @methods     = [:displayable_attrs, :editable_attrs, :hidden_attrs]
           template 'model.rb',
@@ -35,7 +35,7 @@ module SpreeeedEngine
         def create_concern_datatable
           @klass       = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
           folder_name   = @klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
-          @namespaces  = folder_name.split('/').map(&:titleize)
+          @namespaces  = folder_name.split('/').map(&:titleize).collect{ |e| e.delete(' ') }
           @indent      = '  ' * (@namespaces.size + 2)
           @methods     = [:datatable_cols, :datatable_searchable_cols, :datatable_sortable_cols, :datatable_default_sortable_cols]
           template 'datatable.rb',
