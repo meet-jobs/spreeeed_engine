@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-source 'http://insecure.rails-assets.org'
+source 'https://rails-assets.org'
 
 # Declare your gem's dependencies in spreeeed_engine.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
