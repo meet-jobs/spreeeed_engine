@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
 
   # Stylesheets
   s.add_dependency 'rails-assets-font-awesome'
-  s.add_dependency 'bootstrap-sass'
+  s.add_dependency 'bootstrap-sass', '3.3.7'
   s.add_dependency 'rails-assets-jasny-bootstrap'
   s.add_dependency 'rails-assets-jquery.gritter'
   s.add_dependency 'rails-assets-moment'

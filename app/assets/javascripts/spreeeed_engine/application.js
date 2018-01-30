@@ -28,7 +28,7 @@
 // require bootstrap-switch
 //= require spreeeed_engine/jquery.bootstrap-switch/bootstrap-switch.min
 //= require spreeeed_engine/jquery.niftymodals/jquery.niftymodals.min
-//= require fuelux
+// require fuelux
 //= require jquery.cookie
 //= require jPushMenu
 //= require nanoscroller
