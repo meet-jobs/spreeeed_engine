@@ -2,7 +2,7 @@ module SpreeeedEngine
   module DatatableController
     extend ActiveSupport::Concern
 
-    include SpreeeedEngine::AttributeHelper
+    include SpreeeedEngine::AttributesHelper
 
     def datatable_cells(object, attrs)
       attrs.collect do |attr|

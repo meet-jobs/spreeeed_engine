@@ -1,5 +1,5 @@
 module SpreeeedEngine
-  module AttributeHelper
+  module AttributesHelper
 
     def humanize_identifiers
       %w(name title subject caption).map(&:to_sym)

@@ -7,7 +7,7 @@ module SpreeeedEngine
     # extend SpreeeedEngine::RoutesHelper
     # extend SpreeeedEngine::CurrentAuthResourceHelper
     # extend SpreeeedEngine::MenuHelper
-    # extend SpreeeedEngine::AttributeHelper
+    # extend SpreeeedEngine::AttributesHelper
     # extend SpreeeedEngine::OperationHelper
     # extend SpreeeedEngine::Input::InterfaceHelper
 

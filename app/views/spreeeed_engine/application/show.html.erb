@@ -7,7 +7,7 @@
       <div class="content">
         <table class="no-border hover">
           <tbody class="no-border-y">
-<% @datatable_config[@klass_key][:cols].each do |attr| %>
+<% @datatable_config[@klass_key][:displayable_attrs].each do |attr| %>
             <tr>
               <td><%= @klass.human_attribute_name(attr.to_sym) %></td>
               <td class="text-right"><%= display_attribute(@object, attr) %></td>
