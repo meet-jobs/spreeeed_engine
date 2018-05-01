@@ -68,6 +68,19 @@ module SpreeeedEngine
         return datatable_cell_value(value, :id)
       end
 
+      if has_many_association?(object.class, {name: attr.to_s})
+        return '' if value.empty?
+        related_object_name = humanize_identifiers.select do |humanize_identifier|
+          value.respond_to?(humanize_identifier)
+        end.first
+
+        if related_object_name.present?
+          return value.collect { |related_object| datatable_cell_value(related_object, related_object_name) }.join(', ')
+        else
+          return value.collect { |related_object| datatable_cell_value(related_object, related_object_name) }.join(', ')
+        end
+      end
+
       if defined?(CarrierWave::Uploader::Base) && value.kind_of?(CarrierWave::Uploader::Base)
         if value.class.const_defined? 'MiniMagick'
           return asset_image_tag(value, [:datatable, :square])
