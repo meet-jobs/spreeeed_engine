@@ -12,3 +12,33 @@
   <div class="col-sm-9"><%= link_to_remove_association %Q|<i class="fas fa-trash-alt"></i> #{t('operations.destroy')} #{klass.model_name.human}|.html_safe, f, :class => 'btn btn-danger btn-sm pull-right' %></div>
   <br clear="all" />
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.has-switch').bootstrapSwitch();
+
+        $(".se-date").datetimepicker({
+            format: $(".se-date").data('datetime-format'),
+            locale: '<%= SpreeeedEngine.locale %>',
+        });
+
+        $(".se-time").datetimepicker({
+            format: $(".se-time").data('datetime-format'),
+            locale: '<%= SpreeeedEngine.locale %>',
+        });
+
+        $(".se-datetime").datetimepicker({
+            format: $(".se-datetime").data('datetime-format'),
+            locale: '<%= SpreeeedEngine.locale %>',
+        });
+
+        $('textarea.autogrow').autoGrow();
+
+        $('.icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass: 'iradio_flat-blue'
+        });
+
+        $('input.autogrow').inputAutogrow({maxWidth: 500, trailingSpace: 10});
+    });
+</script>
