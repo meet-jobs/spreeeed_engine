@@ -75,9 +75,9 @@ module SpreeeedEngine
         end.first
 
         if related_object_name.present?
-          return value.collect { |related_object| datatable_cell_value(related_object, related_object_name) }.join(', ')
+          return value.collect { |related_object| datatable_cell_value(related_object, related_object_name) }.join(', ').html_safe
         else
-          return value.collect { |related_object| datatable_cell_value(related_object, related_object_name) }.join(', ')
+          return value.collect { |related_object| datatable_cell_value(related_object, :id) }.join(', ').html_safe
         end
       end
 
