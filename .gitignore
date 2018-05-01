@@ -75,3 +75,8 @@ dump.rdb
 #
 /test/fixtures/files
 
+#
+# Ignore dummy app log, tmp
+#
+/test/dummy/log
+/test/dummy/tmp
