@@ -64,7 +64,7 @@ module SpreeeedEngine
       active     = (request.path == path)
       active_css = (active ? ' class="active"' : '')
 
-      %Q|<li#{active_css}><a href="#{path}"><i class="fa #{icon_css}"></i> <span>#{label}</span></a></li>|
+      %Q|<li#{active_css}><a href="#{path}"><i class="fa #{icon_css}"></i>&nbsp;&nbsp;<span>#{label}</span></a></li>|
     end
   end
 end
