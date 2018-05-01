@@ -14,8 +14,10 @@
 @import 'plugins/table.min';
 @import 'plugins/video.min';
 
+/*
 $fa-font-path: "/assets/font-awesome/fonts";
-@import 'font-awesome/web-fonts-with-css/css/fontawesome-all.scss';
+@import 'font-awesome/svg-with-js/css/fa-svg-with-js.scss';
+*/
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
