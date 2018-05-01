@@ -344,7 +344,7 @@ module SpreeeedEngine
         render_select_input(klass, attr, form_object, collection)
       end
 
-      def render_datetime_input(klass, attr, form_object, options={ruby_time_format: '%Y-%m-%d %H:%M:%S', js_time_format: 'YYYY-MM-DD HH:mm:ss', css_selector: 'se-datetime', icon_class: 'fa fa-calendar'})
+      def render_datetime_input(klass, attr, form_object, options={ruby_time_format: '%Y-%m-%d %H:%M:%S', js_time_format: 'YYYY-MM-DD HH:mm:ss', css_selector: 'se-datetime', icon_class: 'far fa-calendar-alt'})
         attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => 'form-group' do
@@ -373,11 +373,11 @@ module SpreeeedEngine
       end
 
       def render_date_input(klass, attr, form_object)
-        render_datetime_input(klass, attr, form_object, {ruby_time_format: '%Y-%m-%d', js_time_format: 'YYYY-MM-DD', css_selector: 'se-date', icon_class: 'fa fa-calendar'})
+        render_datetime_input(klass, attr, form_object, {ruby_time_format: '%Y-%m-%d', js_time_format: 'YYYY-MM-DD', css_selector: 'se-date', icon_class: 'far fa-calendar-alt'})
       end
 
       def render_time_input(klass, attr, form_object)
-        render_datetime_input(klass, attr, form_object, {ruby_time_format: '%H:%M:%S', js_time_format: 'HH:mm:ss', css_selector: 'se-time', icon_class: 'fa fa-clock-o'})
+        render_datetime_input(klass, attr, form_object, {ruby_time_format: '%H:%M:%S', js_time_format: 'HH:mm:ss', css_selector: 'se-time', icon_class: 'far fa-clock'})
       end
 
       def render_image_input(klass, attr, form_object)

@@ -207,7 +207,7 @@ $(function(){
       /*Return to top*/
       var offset = 220;
       var duration = 500;
-      var button = $('<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>');
+      var button = $('<a href="#" class="back-to-top"><i class="fas fa-angle-up"></i></a>');
       button.appendTo("body");
       
       jQuery(window).scroll(function() {
@@ -275,7 +275,7 @@ $(function(){
     $('.refresh').click(function(e){
       var h = $(this).parents(".header");
       var p = h.parent();
-      var loading = $('<div class="loading"><i class="fa fa-refresh fa-spin"></i></div>');
+      var loading = $('<div class="loading"><i class="fas fa-refresh fa-spin"></i></div>');
       
       loading.appendTo(p);
       loading.fadeIn();

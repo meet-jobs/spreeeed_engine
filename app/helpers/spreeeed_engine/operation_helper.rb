@@ -2,15 +2,15 @@ module SpreeeedEngine
   module OperationHelper
 
     def edit_label
-      "<i class='fa fa-pencil'></i> #{t('operations.edit')}".html_safe
+      "<i class='fas fa-pencil-alt'></i> #{t('operations.edit')}".html_safe
     end
 
     def frontend_view_label
-      "<i class='fa fa-eye'></i> #{t('operations.frontend_view')}".html_safe
+      "<i class='fas fa-eye'></i> #{t('operations.frontend_view')}".html_safe
     end
 
     def destroy_label
-      "<i class='fa fa-trash-o'></i> #{t('operations.destroy')}".html_safe
+      "<i class='fas fa-trash-alt'></i> #{t('operations.destroy')}".html_safe
     end
 
     def spinner

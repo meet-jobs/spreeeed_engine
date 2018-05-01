@@ -1,8 +1,8 @@
 ---
 en:
   will_paginate:
-    previous_label: '<span class="fa fa-angle-left"></span> Previous'
-    next_label: 'Next <span class="fa fa-angle-right"></span>'
+    previous_label: '<span class="fas fa-angle-left"></span> Previous'
+    next_label: 'Next <span class="fas fa-angle-right"></span>'
     page_gap: "&hellip;"
 
     page_entries_info:

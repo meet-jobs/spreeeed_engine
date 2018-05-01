@@ -4,7 +4,7 @@ module ActiveRecordExtension
 
   class_methods do
     def icon
-      'fa-edit'
+      'fas fa-edit'
     end
 
     def protected_attrs

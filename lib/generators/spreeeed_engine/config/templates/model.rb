@@ -5,7 +5,7 @@ module SpreeeedEngine
 
 <%= @indent %>class_methods do
   <%= @indent %>def icon
-    <%= @indent %>'fa-edit'
+    <%= @indent %>'fas fa-edit'
   <%= @indent %>end
 <% @methods.each do |method| %>
   <%= @indent %>def <%= method.to_s %>
