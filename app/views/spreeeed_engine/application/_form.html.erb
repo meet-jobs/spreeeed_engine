@@ -49,12 +49,14 @@
       <h3><%= klass.human_attribute_name(group.to_sym) %></h3>
     </div>
     <% attrs.each do |attr| %>
+      <% next if active_record_config[:hidden_attrs].include?(attr.to_sym) %>
       <%= render_input(klass, attr, f) %>
     <% end %>
   <% end %>
 <% else %>
   <% active_record_config[:editable_attrs].each do |attr| %>
-<%= render_input(klass, attr, f) %>
+      <% next if active_record_config[:hidden_attrs].include?(attr.to_sym) %>
+      <%= render_input(klass, attr, f) %>
   <% end %>
 <% end %>
 
