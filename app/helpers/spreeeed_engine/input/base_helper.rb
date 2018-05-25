@@ -443,7 +443,7 @@ module SpreeeedEngine
                 c4 += content_tag :span, :class => 'fileinput-exists' do
                   I18n.t('operations.change')
                 end
-                c4 += form_object.input_field attr.to_sym, bind_validators(klass, attr, {:class => ""})
+                c4 += form_object.file_field attr.to_sym, bind_validators(klass, attr, {:class => ''})
                 c4
               end
               c3 += content_tag(:span, '', :class => 'fileinput-filename')
