@@ -383,13 +383,13 @@ module SpreeeedEngine
       def render_image_input(klass, attr, form_object)
         attr_id = attr_identifier(klass, attr)
 
-        content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => attr_id do
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
-          c1 += content_tag :div, :class => "col-sm-6" do
-            c2 = content_tag :div, :'data-provides' => 'fileinput', :class => "fileinput fileinput-new" do
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            c2 = content_tag :div, :'data-provides' => 'fileinput', :class => 'fileinput fileinput-new' do
               c3 = ''
               if (url = form_object.object.send(attr.to_sym).try(:url))
                 c3 += content_tag :div, :class => 'fileinput-new thumbnail' do
@@ -429,38 +429,25 @@ module SpreeeedEngine
       def render_file_input(klass, attr, form_object)
         attr_id = attr_identifier(klass, attr)
 
-        content_tag :div, :class => "form-group" do
-          c1 = content_tag :label, :class => "col-sm-3 control-label", :for => attr_id do
+        content_tag :div, :class => 'form-group' do
+          c1 = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
             klass.human_attribute_name(attr.to_sym)
           end
 
-          c1 += content_tag :div, :class => "col-sm-6" do
-            c2 = content_tag :div, :'data-provides' => 'fileinput', :class => "fileinput fileinput-new" do
-              c3 = ''
-              if (url = form_object.object.send(attr.to_sym).url)
-                c3 += content_tag :div, :class => 'fileinput-new thumbnail' do
-                  content_tag :img, :src => url, :width => 200 do
-                  end
+          c1 += content_tag :div, :class => 'col-sm-6' do
+            c2 = content_tag :div, :'data-provides' => 'fileinput', :class => 'fileinput fileinput-new' do
+              c3 = content_tag :span, :class => 'btn btn-primary btn-file' do
+                c4 = content_tag :span, :class => 'fileinput-new' do
+                  I18n.t('operations.choose_file')
                 end
-              end
-              c3 += content_tag :div, :class => 'fileinput-preview fileinput-exists thumbnail', :style => 'max-width: 200px;' do
-              end
-              c3 += content_tag :div do
-                c4 = content_tag :span, :class => 'btn btn-primary btn-file' do
-                  c5 = content_tag :span, :class => 'fileinput-new' do
-                    I18n.t('operations.choose_file')
-                  end
-                  c5 += content_tag :span, :class => 'fileinput-exists' do
-                    I18n.t('operations.change')
-                  end
-                  c5 += form_object.input_field attr.to_sym, bind_validators(klass, attr, {:class => ""})
-                  c5
+                c4 += content_tag :span, :class => 'fileinput-exists' do
+                  I18n.t('operations.change')
                 end
-                c4 += content_tag :a, :'data-dismiss' => 'fileinput', :class => 'btn btn-danger fileinput-exists' do
-                  I18n.t('operations.remove_file')
-                end
+                c4 += form_object.input_field attr.to_sym, bind_validators(klass, attr, {:class => ""})
                 c4
               end
+              c3 += content_tag(:span, '', :class => 'fileinput-filename')
+              c3 += content_tag(:a, '', :'data-dismiss' => 'fileinput', :class => 'close fileinput-exists', :style => 'float: none')
               c3.html_safe
             end
             c2 += content_tag(:div, '', :id => "#{attr_id}-error")
