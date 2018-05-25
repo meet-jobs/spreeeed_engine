@@ -447,7 +447,7 @@ module SpreeeedEngine
                 c4
               end
               c3 += content_tag(:span, '', :class => 'fileinput-filename')
-              c3 += content_tag(:a, '', :'data-dismiss' => 'fileinput', :class => 'close fileinput-exists', :style => 'float: none')
+              c3 += content_tag(:a, 'x', :'data-dismiss' => 'fileinput', :class => 'close fileinput-exists', :style => 'float: none')
               c3.html_safe
             end
             c2 += content_tag(:div, '', :id => "#{attr_id}-error")
