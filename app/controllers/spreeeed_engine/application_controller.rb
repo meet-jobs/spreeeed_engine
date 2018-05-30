@@ -113,12 +113,13 @@ module SpreeeedEngine
 
     def destroy
       @object = find_instance
-      @object.destroy
 
       respond_to do |format|
-        # format.html { redirect_to send("#{SpreeeedEngine.namespace}_#{@klass.name.underscore.pluralize}_url") }
-        format.html { redirect_to objects_path }
-        # format.json { head :no_content }
+        if @object.destroy
+          format.html { redirect_to objects_path }
+        else
+          format.html { render action: 'show' }
+        end
       end
     end
 
