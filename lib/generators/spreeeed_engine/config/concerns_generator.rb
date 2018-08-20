@@ -23,7 +23,7 @@ module SpreeeedEngine
         source_root File.expand_path('../templates', __FILE__)
 
         def create_concern_model
-          @klass       = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
+          @klass       = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').gsub('/', '::').classify.constantize
           folder_name  = @klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
           @namespaces  = folder_name.split('/').map(&:titleize).collect{ |e| e.delete(' ') }
           @indent      = '  ' * (@namespaces.size + 2)
@@ -33,7 +33,7 @@ module SpreeeedEngine
         end
 
         def create_concern_datatable
-          @klass       = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
+          @klass       = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').gsub('/', '::').classify.constantize
           folder_name   = @klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
           @namespaces  = folder_name.split('/').map(&:titleize).collect{ |e| e.delete(' ') }
           @indent      = '  ' * (@namespaces.size + 2)

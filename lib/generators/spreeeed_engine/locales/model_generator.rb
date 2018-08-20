@@ -35,7 +35,7 @@ module SpreeeedEngine
 
         # http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html
         def create_locale_file
-          klass        = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').classify.constantize
+          klass        = Object.const_get(name) rescue name.titleize.gsub(/\s+/, '').gsub('/', '::').classify.constantize
           @model_name  = klass.name.titleize.singularize.downcase.gsub(/\s+/, '_')
           @columns     = klass.column_names
           template 'en.yml',
