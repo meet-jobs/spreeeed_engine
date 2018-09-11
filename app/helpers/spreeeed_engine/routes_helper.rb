@@ -1,5 +1,6 @@
 module SpreeeedEngine
   module RoutesHelper
+    # class << self; attr_accessor :klass; end
 
     def klass_name
       @klass.name.underscore

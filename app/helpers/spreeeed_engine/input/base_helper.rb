@@ -69,7 +69,7 @@ module SpreeeedEngine
 
       def render_textarea_input(klass, attr, form_object, html_options={})
         attr_id = attr_identifier(klass, attr)
-        html_options.merge!({cols: 60, rows: 10, class: 'form-control autogrow', 'data-plus-as-tab': 'false'})
+        html_options.merge!({cols: 60, rows: 10, class: 'form-control autogrow', 'data-plus-as-tab' => 'false'})
 
         content_tag :div, :class => 'form-group' do
           content = content_tag :label, :class => 'col-sm-3 control-label', :for => attr_id do
@@ -156,7 +156,7 @@ module SpreeeedEngine
         end
       end
 
-      def render_select_input(klass, attr, form_object, collection)
+      def render_select_input(klass, attr, form_object, collection, html_options={})
         attr_id = attr_identifier(klass, attr)
 
         content_tag :div, :class => 'form-group' do
@@ -166,7 +166,7 @@ module SpreeeedEngine
 
           c1 += content_tag :div, :class => 'col-sm-6' do
             content_tag :div, :class => 'input-group' do
-              html_options = bind_validators(klass, attr).merge({:collection => collection})
+              html_options = bind_validators(klass, attr).merge(html_options).merge({:collection => collection})
               form_object.input_field(attr.to_sym, html_options)
             end
           end
@@ -291,7 +291,7 @@ module SpreeeedEngine
           c1 += content_tag :div, :class => 'col-sm-6' do
             c2 = content_tag :div, :class => 'input-group' do
               auto_complete_options = {
-                'data-provide': 'typeahead',
+                'data-provide' => 'typeahead',
                 autocomplete: 'off'
               }
               html_options = bind_validators(klass, attr).merge(auto_complete_options)
