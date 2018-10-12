@@ -64,7 +64,10 @@
 <%= render_hidden_input(klass, attr, f) %>
   <% end %>
 
-<% active_record_config[:nested_attrs].each do |attr, col_class| %>
+<%
+  active_record_config[:nested_attrs].each do |attr, col_class|
+    next if active_record_config[:hidden_attrs].include?(attr.to_sym)
+%>
 <%
   related_object_name = attr
   related_klass       = col_class.constantize
