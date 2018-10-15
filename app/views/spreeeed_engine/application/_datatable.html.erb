@@ -31,6 +31,7 @@
           sLast:     '<%= t('datatables.oLanguage.oPaginate.sLast') %>'
         }
       },
+      iDisplayLength: <%= controller.class::PER_PAGE %>,
       bServerSide: true,
       sAjaxSource: '<%= objects_path %>',
       aoColumns: <%= render_sortable_cols(datatable_config[:cols], datatable_config[:sortable_cols]).to_json.html_safe %>,

@@ -7,7 +7,7 @@ module SpreeeedEngine
 
     protect_from_forgery with: :exception
 
-    PER_PAGE = 20
+    PER_PAGE = 10
 
     before_action :"authenticate_#{SpreeeedEngine.devise_auth_resource}!", :set_klass, :set_klass_key
 
