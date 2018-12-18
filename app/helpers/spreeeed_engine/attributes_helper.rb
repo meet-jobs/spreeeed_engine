@@ -29,7 +29,7 @@ module SpreeeedEngine
         groups[1] = groups[1][1..-1] if groups[1][0] == '0'
         groups.delete_at(1) if groups[1].size == 0 # remove if it was only a 0
       end
-      link_to text, "tel:#{groups.join '-'}"
+      link_to text.to_s, "tel:#{groups.join '-'}"
     end
 
     def password_mask(pwd)
