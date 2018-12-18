@@ -32,11 +32,11 @@ module SpreeeedEngine
     end
 
     def _object_path
-      "#{SpreeeedEngine.namespace}_#{resource}_path"
+      [SpreeeedEngine.namespace, resource, 'path'].compact.join('_')
     end
 
     def _objects_path
-      "#{SpreeeedEngine.namespace}_#{resources}_path"
+      [SpreeeedEngine.namespace, resources, 'path'].compact.join('_')
     end
 
   end
