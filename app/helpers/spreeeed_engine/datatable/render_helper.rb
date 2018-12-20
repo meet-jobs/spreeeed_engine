@@ -58,7 +58,7 @@ module SpreeeedEngine
         value = object.send(attr.to_sym)
 
         if primary_humanize_identifiers.include?(attr)
-          return link_to(value, object_path(object), {:target => '_blank'})
+          return link_to(value.to_s, object_path(object), {:target => '_blank'})
         end
 
         if belongs_to_association?(object.class, {name: attr.to_s})
