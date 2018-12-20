@@ -1,9 +1,13 @@
 module SpreeeedEngine
   module RoutesHelper
-    # class << self; attr_accessor :klass; end
+    mattr_accessor :_klass
 
     def klass_name
-      @klass.name.underscore
+      if @_klass
+        @_klass.name.underscore
+      else
+        @klass.name.underscore
+      end
     end
 
     def resources

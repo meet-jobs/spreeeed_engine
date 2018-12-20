@@ -50,6 +50,8 @@ module SpreeeedEngine
       def datatable_cell_value(object, attr)
         return nil if object.nil? || object.new_record?
 
+        SpreeeedEngine::RoutesHelper._klass = object.class
+
         custom_cell_value = custom_datatable_cell_value(object, attr)
         return custom_cell_value if custom_cell_value.present?
 
@@ -60,6 +62,15 @@ module SpreeeedEngine
         end
 
         if belongs_to_association?(object.class, {name: attr.to_s})
+          humanize_identifiers.each do |related_object_name|
+            if value.respond_to?(related_object_name)
+              return datatable_cell_value(value, related_object_name)
+            end
+          end
+          return datatable_cell_value(value, :id)
+        end
+
+        if has_one_association?(object.class, {name: attr.to_s})
           humanize_identifiers.each do |related_object_name|
             if value.respond_to?(related_object_name)
               return datatable_cell_value(value, related_object_name)
