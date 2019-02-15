@@ -24,12 +24,12 @@
 # Ignore uploaded files in development
 /storage/*
 
-/node_modules
+#/node_modules
 /yarn-error.log
 
-/public/assets
-/public/uploads
-/public/sitemaps
+#/public/assets
+#/public/uploads
+#/public/sitemaps
 
 
 # Ignore master key for decrypting credentials and more.
